@@ -4,6 +4,7 @@ package xxl;
 
 import java.io.Serial;
 import java.io.Serializable;
+import xxl.exceptions.UnrecognizedEntryException;
 
 /**
  * Class representing a spreadsheet.

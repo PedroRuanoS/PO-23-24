@@ -20,6 +20,7 @@ public class Calculator {
 
     // FIXME add more fields if needed
 
+    public Spreadsheet getSpreadsheet() { return _spreadsheet; }
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
@@ -64,9 +65,9 @@ public class Calculator {
         try {
             // FIXME open import file and feed entries to new spreadsheet (in a cycle)
 	    //       each entry is inserted with:
-	    _spreadsheet.insertContents(/* FIXME produce arguments */);
+	    _spreadsheet.insertContents("", ""); /* FIXME replace placeholders */
 	    // ....
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+        } catch (/* IOException | */ UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
             throw new ImportFileException(filename, e);
         }
     }
