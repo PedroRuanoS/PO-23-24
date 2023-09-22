@@ -1,2 +1,6 @@
 # shell scripts
 *.sh
+
+# binaries and etc...
+*.class
+*.jar
