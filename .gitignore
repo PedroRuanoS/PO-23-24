@@ -7,3 +7,5 @@
 
 # Other garbage
 *.DS_STORE
+*.idea
+*.iml
