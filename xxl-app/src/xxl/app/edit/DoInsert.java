@@ -12,7 +12,8 @@ class DoInsert extends Command<Spreadsheet> {
 
     DoInsert(Spreadsheet receiver) {
         super(Label.INSERT, receiver);
-        // FIXME add fields
+        addStringField("rangeSpecification", Prompt.address());
+        addStringField("contentSpecification", Prompt.content());
     }
 
     @Override
