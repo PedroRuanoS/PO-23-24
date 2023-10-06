@@ -4,6 +4,9 @@ package xxl;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.LinkedList;
+
 import xxl.exceptions.UnrecognizedEntryException;
 
 /**
@@ -27,5 +30,19 @@ public class Spreadsheet implements Serializable {
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException /* FIXME maybe add exceptions */ {
         //FIXME implement method
     }
+
+    public void copyContents(String rangeSpecification) {}
+
+    public void pasteContents(String rangeSpecification) {}
+
+    public void cutContents(String rangeSpecification) {}
+
+    public void deleteContents(String rangeSpecification) {}
+
+    public void showContents(String rangeSpecification) {}
+
+    public Collection<String/* temporary */> showContent (String rangeSpecification) { return new LinkedList<>(); }
+
+    public Collection<String/* temporary */> findFunction(String functionName) { return new LinkedList<>(); }
 
 }

@@ -12,12 +12,12 @@ class DoCopy extends Command<Spreadsheet> {
 
     DoCopy(Spreadsheet receiver) {
         super(Label.COPY, receiver);
-        // FIXME add fields
+        addStringField("rangeSpecification", Prompt.address());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        // FIXME implement command
+
     }
 
 }
