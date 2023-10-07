@@ -5,7 +5,9 @@ package xxl;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 import xxl.exceptions.UnrecognizedEntryException;
 
@@ -17,10 +19,14 @@ public class Spreadsheet implements Serializable {
     @Serial
     private static final long serialVersionUID = 202308312359L;
 
+    private Map<Integer, Cell> _cells;
+
     // FIXME define attributes
     // FIXME define contructor(s)
     // FIXME define methods
-
+    public Spreadsheet(int rows, int columns) {
+        _cells = new HashMap<>(rows * columns);
+    }
     /**
      * Insert specified content in specified range.
      *

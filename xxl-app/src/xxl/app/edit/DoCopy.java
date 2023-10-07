@@ -17,7 +17,7 @@ class DoCopy extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-
+        System.out.println("execute()@DoCopy");
     }
 
 }

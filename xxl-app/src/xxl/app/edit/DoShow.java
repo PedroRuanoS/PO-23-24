@@ -12,12 +12,13 @@ class DoShow extends Command<Spreadsheet> {
 
     DoShow(Spreadsheet receiver) {
         super(Label.SHOW, receiver);
-        // FIXME add fields
+        addStringField("rangeSpecification", Prompt.address());
+
     }
 
     @Override
     protected final void execute() throws CommandException {
-        // FIXME implement command
+        System.out.println("execute()@DoShow");
     }
 
 }

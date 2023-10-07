@@ -12,12 +12,12 @@ class DoPaste extends Command<Spreadsheet> {
 
     DoPaste(Spreadsheet receiver) {
         super(Label.PASTE, receiver);
-        // FIXME add fields
+        addStringField("rangeSpecification", Prompt.address());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        // FIXME implement command
+        System.out.println("execute()@DoPaste");
     }
 
 }

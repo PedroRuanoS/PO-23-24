@@ -21,6 +21,10 @@ public class Calculator {
     // FIXME add more fields if needed
 
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
+
+    public void createSpreadsheet(int rows, int columns) {
+        _spreadsheet = new Spreadsheet(rows, columns);
+    }
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *

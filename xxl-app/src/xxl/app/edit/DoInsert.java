@@ -18,7 +18,7 @@ class DoInsert extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-        // FIXME implement command
+        System.out.println("execute()@DoInsert");
     }
 
 }
