@@ -16,7 +16,7 @@ import xxl.exceptions.UnrecognizedEntryException;
 public class Calculator {
 
     /** The current spreadsheet. */
-    private Spreadsheet _spreadsheet = new Spreadsheet();
+    private Spreadsheet _spreadsheet = null;
 
     // FIXME add more fields if needed
 
@@ -67,6 +67,8 @@ public class Calculator {
      */
     public void importFile(String filename) throws ImportFileException {
         try {
+            if (_spreadsheet == null)
+                _spreadsheet = new Spreadsheet();
             _spreadsheet.importFile(filename);
         } catch (IOException | UnrecognizedEntryException  e) {
             throw new ImportFileException(filename, e);
