@@ -3,6 +3,7 @@ package xxl.app.edit;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.Spreadsheet;
+import xxl.exceptions.UnrecognizedEntryException;
 // FIXME import classes
 
 /**
@@ -18,7 +19,11 @@ class DoShow extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-        System.out.println("execute()@DoShow");
+        try {
+            _receiver.showContents(stringField("rangeSpecification"));
+        } catch (UnrecognizedEntryException e) {
+            throw new InvalidCellRangeException(e.getEntrySpecification());
+        }
     }
 
 }

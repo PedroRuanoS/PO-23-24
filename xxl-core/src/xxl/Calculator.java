@@ -16,7 +16,7 @@ import xxl.exceptions.UnrecognizedEntryException;
 public class Calculator {
 
     /** The current spreadsheet. */
-    private Spreadsheet _spreadsheet = null;
+    private Spreadsheet _spreadsheet = new Spreadsheet();
 
     // FIXME add more fields if needed
 
@@ -67,11 +67,8 @@ public class Calculator {
      */
     public void importFile(String filename) throws ImportFileException {
         try {
-            // FIXME open import file and feed entries to new spreadsheet (in a cycle)
-	    //       each entry is inserted with:
-	    _spreadsheet.insertContents("", ""); /* FIXME replace placeholders */
-	    // ....
-        } catch (/* IOException | */ UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+            _spreadsheet.importFile(filename);
+        } catch (IOException | UnrecognizedEntryException  e) {
             throw new ImportFileException(filename, e);
         }
     }
