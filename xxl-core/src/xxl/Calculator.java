@@ -22,7 +22,7 @@ public class Calculator {
 
 
     public void createSpreadsheet(int rows, int columns) {
-
+        _spreadsheet = new Spreadsheet(rows, columns);
     }
 
     public void createUser() {
