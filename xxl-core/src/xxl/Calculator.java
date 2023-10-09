@@ -8,7 +8,7 @@ import xxl.exceptions.MissingFileAssociationException;
 import xxl.exceptions.UnavailableFileException;
 import xxl.exceptions.UnrecognizedEntryException;
 
-// FIXME import classes
+// FIXME import classes (Classes para ler e escrever em ficheiros e isso)
 
 /**
  * Class representing a spreadsheet application.
@@ -16,15 +16,21 @@ import xxl.exceptions.UnrecognizedEntryException;
 public class Calculator {
 
     /** The current spreadsheet. */
-    private Spreadsheet _spreadsheet = null;
+    private Spreadsheet _spreadsheet;
 
-    // FIXME add more fields if needed
+    // FIXME add more fields if needed (provavelmente _filename?)
+
+
+    public void createSpreadsheet(int rows, int columns) {
+
+    }
+
+    public void createUser() {
+
+    }
 
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
 
-    public void createSpreadsheet(int rows, int columns) {
-        _spreadsheet = new Spreadsheet(rows, columns);
-    }
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
@@ -66,11 +72,10 @@ public class Calculator {
      * @throws ImportFileException
      */
     public void importFile(String filename) throws ImportFileException {
+        if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
         try {
-            if (_spreadsheet == null)
-                _spreadsheet = new Spreadsheet();
             _spreadsheet.importFile(filename);
-        } catch (IOException | UnrecognizedEntryException  e) {
+        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
             throw new ImportFileException(filename, e);
         }
     }
