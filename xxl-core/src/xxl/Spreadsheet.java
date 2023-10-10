@@ -7,6 +7,8 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import xxl.exceptions.UnrecognizedEntryException;
+import xxl.storage.CutBuffer;
+import xxl.storage.Storage;
 
 /**
  * Class representing a spreadsheet.
@@ -15,19 +17,19 @@ public class Spreadsheet implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 202308312359L;
-    private static final int DIMENSION_ENTRIES = 2;
+
     // FIXME define attributes
     // FIXME define methods
 
     private Storage _storage;
-    private CutBuffer _cutBuffer = new CutBuffer();
+    private CutBuffer _cutBuffer;
     private boolean _changed = false;
 
     public Spreadsheet() {
-        _storage = new Storage();
     }
     public Spreadsheet(int rows, int columns) {
         _storage = new Storage(rows, columns);
+        _cutBuffer = new CutBuffer(rows, columns);
     }
 
     /**
@@ -37,7 +39,7 @@ public class Spreadsheet implements Serializable {
      * @param contentSpecification
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException /* FIXME maybe add exceptions */ {
-        //FIXME implement method
+
     }
 
     public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
@@ -71,11 +73,12 @@ public class Spreadsheet implements Serializable {
         return new LinkedList<>();
     }
 
-    public void importFile(String filename) throws IOException, UnrecognizedEntryException {
+    public void importFile(String filename)
+            throws IOException, UnrecognizedEntryException, NumberFormatException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             registerDimensions(reader);
-            String line;
 
+            String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split("\\|");
                 insertContents(fields[0], fields[1]);
@@ -85,26 +88,19 @@ public class Spreadsheet implements Serializable {
         }
     }
 
-    private void registerDimensions(BufferedReader reader) throws IOException, UnrecognizedEntryException {
-        int rows = 0, columns = 0;
-        String line = null;
-        String[] fields;
+    private void registerDimensions(BufferedReader reader)
+            throws IOException, UnrecognizedEntryException, NumberFormatException {
+        String line_rows = reader.readLine();
+        String line_columns = reader.readLine();
 
-        for (int i = 0; i < DIMENSION_ENTRIES; i++) {
-            try {
-                line = reader.readLine();
-                fields = line.split("=");
+        int rows = Integer.parseInt(line_rows);
+        int columns = Integer.parseInt(line_columns);
 
-                switch (fields[0]) {
-                    case "linhas" -> rows = Integer.parseInt(fields[1]);
-                    case "colunas" -> columns = Integer.parseInt(fields[1]);
-                    default -> throw new UnrecognizedEntryException(line);
-                }
-            } catch (NumberFormatException e) {
-                throw new UnrecognizedEntryException(line, e);
-            }
-        }
-        if (rows != 0 && columns != 0) _storage = new Storage(rows, columns);
+        if (rows <= 0) throw new UnrecognizedEntryException(line_rows);
+        if (columns <= 0) throw new UnrecognizedEntryException(line_columns);
+
+        _storage = new Storage(rows, columns);
+        _cutBuffer = new CutBuffer(rows, columns);
     }
 
 }

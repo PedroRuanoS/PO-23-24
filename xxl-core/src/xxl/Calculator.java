@@ -75,7 +75,7 @@ public class Calculator {
         if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
         try {
             _spreadsheet.importFile(filename);
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+        } catch (IOException | UnrecognizedEntryException | NumberFormatException e) {
             throw new ImportFileException(filename, e);
         }
     }
