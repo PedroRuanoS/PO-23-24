@@ -18,8 +18,6 @@ public class Spreadsheet implements Serializable {
     @Serial
     private static final long serialVersionUID = 202308312359L;
 
-    // FIXME define attributes
-    // FIXME define methods
 
     private Storage _storage;
     private CutBuffer _cutBuffer;
@@ -27,6 +25,7 @@ public class Spreadsheet implements Serializable {
 
     public Spreadsheet() {
     }
+
     public Spreadsheet(int rows, int columns) {
         _storage = new Storage(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
@@ -38,40 +37,11 @@ public class Spreadsheet implements Serializable {
      * @param rangeSpecification
      * @param contentSpecification
      */
-    public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException /* FIXME maybe add exceptions */ {
+    public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
+        Range range = new Range(rangeSpecification);
 
     }
 
-    public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
-    }
-
-    public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
-
-    }
-
-    public void cutContents(String rangeSpecification) throws UnrecognizedEntryException {
-
-    }
-
-    public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
-
-    }
-
-    public Collection<String/* temporary*/> showCutBuffer() {
-        return new LinkedList<>();
-    }
-
-    public Collection<String/* temporary */> showContents(String rangeSpecification) throws UnrecognizedEntryException{
-        return new LinkedList<>();
-    }
-
-    public Collection<String/* temporary */> findFunction(String functionName) throws UnrecognizedEntryException {
-        return new LinkedList<>();
-    }
-
-    public Collection<String/* temporary */> findValue(String functionName) throws UnrecognizedEntryException {
-        return new LinkedList<>();
-    }
 
     public void importFile(String filename)
             throws IOException, UnrecognizedEntryException, NumberFormatException {

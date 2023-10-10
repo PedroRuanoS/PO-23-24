@@ -1,4 +1,4 @@
 package xxl.content;
 
-public class FunctionContent {
+public class FunctionContent extends Content {
 }

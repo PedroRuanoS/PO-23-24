@@ -1,4 +1,4 @@
-package xxl.range;
+package xxl;
 
 import xxl.content.Content;
 

@@ -1,4 +1,4 @@
 package xxl.content;
 
-public class ReferencedContent {
+public class ReferencedContent extends Content{
 }
