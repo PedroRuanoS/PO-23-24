@@ -3,9 +3,8 @@ package xxl;
 // FIXME import classes
 
 import java.io.*;
-import java.util.Collection;
-import java.util.LinkedList;
 
+import xxl.exceptions.IllegalEntryException;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.Storage;
@@ -21,7 +20,7 @@ public class Spreadsheet implements Serializable {
 
     private Storage _storage;
     private CutBuffer _cutBuffer;
-    private boolean _changed = false;
+    private boolean _changed;
 
     public Spreadsheet() {
     }
@@ -38,13 +37,26 @@ public class Spreadsheet implements Serializable {
      * @param contentSpecification
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
+        Range range = new Range();
+        try {
+            range.processRange(rangeSpecification);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification + "|" + contentSpecification); }
 
+        _storage.insertContent(range, contentSpecification);
+        _changed = true;
     }
 
+    public void showContents(String rangeSpecification) throws UnrecognizedEntryException {
+        Range range = new Range();
+        try {
+            range.processRange(rangeSpecification);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
+
+        _storage.showContent(range);
+    }
 
     public void importFile(String filename)
-            throws IOException, UnrecognizedEntryException, NumberFormatException {
+            throws IOException, UnrecognizedEntryException, NumberFormatException, IllegalEntryException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             registerDimensions(reader);
 
@@ -58,16 +70,13 @@ public class Spreadsheet implements Serializable {
         }
     }
 
-    private void registerDimensions(BufferedReader reader)
-            throws IOException, UnrecognizedEntryException, NumberFormatException {
-        String line_rows = reader.readLine();
-        String line_columns = reader.readLine();
+    private void registerDimensions(BufferedReader reader) // FIXME Make this better looking and add exceptions?
+            throws IOException, NumberFormatException /*,IllegalEntryException*/ {
+        String[] line_rows = reader.readLine().split("=");
+        String[] line_columns = reader.readLine().split("=");
 
-        int rows = Integer.parseInt(line_rows);
-        int columns = Integer.parseInt(line_columns);
-
-        if (rows <= 0) throw new UnrecognizedEntryException(line_rows);
-        if (columns <= 0) throw new UnrecognizedEntryException(line_columns);
+        int rows = Integer.parseInt(line_rows[1]);
+        int columns = Integer.parseInt(line_columns[1]);
 
         _storage = new Storage(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);

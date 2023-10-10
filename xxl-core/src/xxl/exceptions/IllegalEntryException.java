@@ -5,7 +5,7 @@ import java.io.Serial;
 /**
  * Exception for unknown import file entries.
  */
-public class InvalidEntryException extends Exception {
+public class IllegalEntryException extends Exception {
 
     @Serial
     private static final long serialVersionUID = 202308312359L;
@@ -16,7 +16,7 @@ public class InvalidEntryException extends Exception {
     /**
      * @param entrySpecification
      */
-    public InvalidEntryException(String entrySpecification) {
+    public IllegalEntryException(String entrySpecification) {
         _entrySpecification = entrySpecification;
     }
 
@@ -24,7 +24,7 @@ public class InvalidEntryException extends Exception {
      * @param entrySpecification
      * @param cause
      */
-    public InvalidEntryException(String entrySpecification, Exception cause) {
+    public IllegalEntryException(String entrySpecification, Exception cause) {
         super(cause);
         _entrySpecification = entrySpecification;
     }

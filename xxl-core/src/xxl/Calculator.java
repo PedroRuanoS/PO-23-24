@@ -3,10 +3,7 @@ package xxl;
 import java.io.IOException;
 import java.io.FileNotFoundException;
 
-import xxl.exceptions.ImportFileException;
-import xxl.exceptions.MissingFileAssociationException;
-import xxl.exceptions.UnavailableFileException;
-import xxl.exceptions.UnrecognizedEntryException;
+import xxl.exceptions.*;
 
 // FIXME import classes (Classes para ler e escrever em ficheiros e isso)
 
@@ -75,7 +72,7 @@ public class Calculator {
         if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
         try {
             _spreadsheet.importFile(filename);
-        } catch (IOException | UnrecognizedEntryException | NumberFormatException e) {
+        } catch (IOException | UnrecognizedEntryException | NumberFormatException | IllegalEntryException e) {
             throw new ImportFileException(filename, e);
         }
     }

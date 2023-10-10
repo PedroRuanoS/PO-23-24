@@ -19,11 +19,11 @@ class DoInsert extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-        try {
+        /*try {
             _receiver.insertContents(stringField("rangeSpecification"), stringField("contentSpecification"));
         } catch (UnrecognizedEntryException e) {
             throw new InvalidCellRangeException(e.getEntrySpecification());
-        }
+        }*/
     }
 
 }
