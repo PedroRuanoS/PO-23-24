@@ -76,7 +76,7 @@ public class Calculator {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
             _spreadsheet.setChanged(false);
-        } catch (FileNotFoundException | IOException | ClassNotFoundException) {
+        } catch (FileNotFoundException | IOException | ClassNotFoundException e) {
             throw new UnavailableFileException(e);
         }
     }
