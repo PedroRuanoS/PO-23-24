@@ -8,6 +8,7 @@ import xxl.exceptions.IllegalEntryException;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.Storage;
+import xxl.range.Range;
 
 /**
  * Class representing a spreadsheet.
@@ -20,7 +21,7 @@ public class Spreadsheet implements Serializable {
 
     private Storage _storage;
     private CutBuffer _cutBuffer;
-    private boolean _changed;
+    private boolean _changed = true;
 
     public Spreadsheet() {
     }
@@ -37,9 +38,9 @@ public class Spreadsheet implements Serializable {
      * @param contentSpecification
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
-        Range range = new Range();
+        Range range = new Range().createRange(rangeSpecification);
         try {
-            range.processRange(rangeSpecification);
+            range.processRange();
         } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification + "|" + contentSpecification); }
 
         _storage.insertContent(range, contentSpecification);
@@ -49,7 +50,7 @@ public class Spreadsheet implements Serializable {
     public void showContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range();
         try {
-            range.processRange(rangeSpecification);
+            range.processRange();
         } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
 
         _storage.showContent(range);
@@ -81,5 +82,4 @@ public class Spreadsheet implements Serializable {
         _storage = new Storage(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
     }
-
 }

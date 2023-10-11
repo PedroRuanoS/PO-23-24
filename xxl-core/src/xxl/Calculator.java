@@ -2,6 +2,13 @@ package xxl;
 
 import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.io.BufferedOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.BufferedInputStream;
+import java.io.ObjectInputStream;
+import java.io.FileInputStream;
+
 
 import xxl.exceptions.*;
 
@@ -26,7 +33,7 @@ public class Calculator {
 
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
     public String getFilename() { return _filename; }
-    public void setFilename() { return _filename = filename; }
+    public void setFilename(String filename) { _filename = filename; }
     
     /**
      * Saves the serialized application's state into the file associated to the current network.
@@ -39,9 +46,8 @@ public class Calculator {
         if (_filename == null || _filename.equals("")) {
             throw new MissingFileAssociationException();
         }
-        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferOutputStream(new FileOutputStream(_filename)))) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
             oos.writeObject(_spreadsheet);
-            _spreadsheet.setChanged(false);
         }
     }
 
@@ -65,11 +71,10 @@ public class Calculator {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException {
+    public void load(String filename) throws UnavailableFileException, FileNotFoundException, IOException, ClassNotFoundException {
         _filename = filename;
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
-            _spreadsheet.setChanged(false);
         }
     }
 
