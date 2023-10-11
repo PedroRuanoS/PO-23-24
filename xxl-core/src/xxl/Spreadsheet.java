@@ -67,7 +67,10 @@ public class Spreadsheet implements Serializable {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] fields = line.split("\\|");
-                insertContents(fields[0], fields[1]);
+                if (fields.length < 2)
+                    insertContents(fields[0], "");
+                else
+                    insertContents(fields[0], fields[1]);
             }
         } catch (FileNotFoundException e) {
             throw new IOException();

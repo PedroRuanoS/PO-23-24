@@ -2,10 +2,14 @@ package xxl;
 
 import xxl.content.Content;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
     private Content _content;
 
-    public Cell(String content) {
-
+    public Cell(String contentSpecification) {
+        if (!contentSpecification.equals(""))
+            _content = new Content().createContent(contentSpecification);
     }
+
 }

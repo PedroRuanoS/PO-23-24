@@ -2,10 +2,12 @@ package xxl.storage;
 
 import xxl.Cell;
 import xxl.range.Range;
+
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Storage {
+public class Storage implements Serializable {
     private int _rows;
     private int _columns;
 
@@ -18,8 +20,10 @@ public class Storage {
     }
 
     public void insertContent(Range range, String contentSpecification) {
-        for (Integer cell_index: range.getIndexedCells(_rows))
-            _cells.put(cell_index, new Cell(contentSpecification));
+        for (Integer cell_index: range.getIndexedCells(_rows)) {
+            Cell new_cell = new Cell(contentSpecification);
+            _cells.put(cell_index, new_cell);
+        }
     }
 
     public void showContent(Range range) {

@@ -1,4 +1,5 @@
 package xxl.content;
 
-public class StringContent extends Literal<String> {
+public class StringContent extends Content {
+    public StringContent(String content) {}
 }
