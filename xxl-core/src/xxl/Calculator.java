@@ -71,13 +71,13 @@ public class Calculator {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException, FileNotFoundException, IOException, ClassNotFoundException {
+    public void load(String filename) throws UnavailableFileException {
         _filename = filename;
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
             _spreadsheet.setChanged(false);
-        } catch (FileNotFoundException | IOException | ClassNotFoundException e) {
-            throw new UnavailableFileException(e);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new UnavailableFileException(filename);
         }
     }
     
