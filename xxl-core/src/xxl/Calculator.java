@@ -9,6 +9,7 @@ import java.io.BufferedInputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 
+import xxl.spreadsheet.Spreadsheet;
 
 import xxl.exceptions.*;
 
@@ -48,6 +49,7 @@ public class Calculator {
         }
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
             oos.writeObject(_spreadsheet);
+            _spreadsheet.setChanged(false);
         }
     }
 
@@ -75,13 +77,14 @@ public class Calculator {
         _filename = filename;
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
+            _spreadsheet.setChanged(false);
         }
     }
     
     public boolean changed() { 
         return _spreadsheet.hasChanged();
     }
-    
+
     /**
      * Read text input file and create domain entities..
      *
