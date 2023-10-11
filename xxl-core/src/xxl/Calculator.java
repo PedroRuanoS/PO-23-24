@@ -77,7 +77,11 @@ public class Calculator {
             _spreadsheet = (Spreadsheet) ois.readObject();
         }
     }
-
+    
+    public boolean changed() { 
+        return _spreadsheet.hasChanged();
+    }
+    
     /**
      * Read text input file and create domain entities..
      *
