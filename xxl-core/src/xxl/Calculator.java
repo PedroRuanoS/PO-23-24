@@ -9,8 +9,6 @@ import java.io.BufferedInputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
 
-import xxl.spreadsheet.Spreadsheet;
-
 import xxl.exceptions.*;
 
 // FIXME import classes (Classes para ler e escrever em ficheiros e isso)
@@ -78,6 +76,8 @@ public class Calculator {
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
             _spreadsheet.setChanged(false);
+        } catch (FileNotFoundException | IOException | ClassNotFoundException) {
+            thorw new UnavailableFileException(e);
         }
     }
     
