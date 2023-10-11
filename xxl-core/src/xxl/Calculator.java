@@ -13,7 +13,7 @@ import xxl.exceptions.*;
 public class Calculator {
 
     /** The current spreadsheet. */
-    private Spreadsheet _spreadsheet;
+    private Spreadsheet _spreadsheet = new Spreadsheet();
 
     private String _filename = "";
 
@@ -22,12 +22,12 @@ public class Calculator {
         _spreadsheet = new Spreadsheet(rows, columns);
     }
 
-    public void createUser() {
-
-    }
+    public void createUser() {}
 
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
-
+    public String getFilename() { return _filename; }
+    public void setFilename() { return _filename = filename; }
+    
     /**
      * Saves the serialized application's state into the file associated to the current network.
      *
@@ -39,7 +39,10 @@ public class Calculator {
         if (_filename == null || _filename.equals("")) {
             throw new MissingFileAssociationException();
         }
-        //...
+        try (ObjectOutputStream oos = new ObjectOutputStream(new BufferOutputStream(new FileOutputStream(_filename)))) {
+            oos.writeObject(_spreadsheet);
+            _spreadsheet.setChanged(false);
+        }
     }
 
     /**
@@ -63,7 +66,11 @@ public class Calculator {
      *         an error while processing this file.
      */
     public void load(String filename) throws UnavailableFileException {
-        // FIXME implement serialization method
+        _filename = filename;
+        try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
+            _spreadsheet = (Spreadsheet) ois.readObject();
+            _spreadsheet.setChanged(false);
+        }
     }
 
     /**
