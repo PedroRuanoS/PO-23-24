@@ -12,11 +12,14 @@ class DoNew extends Command<Calculator> {
 
     DoNew(Calculator receiver) {
         super(Label.NEW, receiver);
+        addIntegerField("rows", Prompt.lines());
+        addIntegerField("columns", Prompt.columns());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        // FIXME IMPLEMENT METHOD
+        _receiver.createSpreadsheet(integerField("rows"), integerField("columns"));
     }
 
 }
+
