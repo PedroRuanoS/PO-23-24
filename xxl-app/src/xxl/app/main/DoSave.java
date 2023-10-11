@@ -24,7 +24,7 @@ class DoSave extends Command<Calculator> {
             _receiver.save();
         } catch (MissingFileAssociationException e) {
             try {
-                _reciever.saveAs(stringField("filename"));
+                _receiver.saveAs(stringField("filename"));
             } catch (MissingFileAssociationException e1) {
                 e1.printStackTrace();
             } catch (IOException e1) {
