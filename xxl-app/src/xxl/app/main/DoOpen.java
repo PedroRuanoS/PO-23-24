@@ -20,8 +20,8 @@ class DoOpen extends Command<Calculator> {
     protected final void execute() throws CommandException {
         try {
             _receiver.load(stringField("filename"));
-        } catch (UnavailableFileException e) {
-            throw new FileOpenFailedException(e.getEntrySpecification());
+        } catch (UnavailableFileException | FileNotFoundException | IOException | ClassNotFoundException e) {
+            throw new FileOpenFailedException(e);
         }
     }
 }
