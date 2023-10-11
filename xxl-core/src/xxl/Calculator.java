@@ -19,7 +19,7 @@ import xxl.exceptions.*;
 public class Calculator {
 
     /** The current spreadsheet. */
-    private Spreadsheet _spreadsheet = new Spreadsheet();
+    private Spreadsheet _spreadsheet = null;
 
     private String _filename = "";
 
