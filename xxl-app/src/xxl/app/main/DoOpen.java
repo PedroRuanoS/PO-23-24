@@ -6,9 +6,6 @@ import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.Calculator;
 import xxl.exceptions.UnavailableFileException;
-import xxl.exceptions.FileNotFoundException;
-import xxl.exceptions.ClassNotFoundException;
-
 
 /**
  * Open existing file.
