@@ -31,6 +31,9 @@ public class Spreadsheet implements Serializable {
         _cutBuffer = new CutBuffer(rows, columns);
     }
 
+    public boolean hasChanged() { return _changed; }
+
+    public void setChanged(boolean changed) { _changed = changed }
     /**
      * Insert specified content in specified range.
      *
@@ -46,7 +49,7 @@ public class Spreadsheet implements Serializable {
         _storage.insertContent(range, contentSpecification);
         _changed = true;
     }
-
+    
     public void showContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range();
         try {
