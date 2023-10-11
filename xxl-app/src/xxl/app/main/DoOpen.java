@@ -19,7 +19,7 @@ class DoOpen extends Command<Calculator> {
     @Override
     protected final void execute() throws CommandException {
         try {
-            _reciever.load(stringField("filename"));
+            _receiver.load(stringField("filename"));
         } catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e.getEntrySpecification());
         }
