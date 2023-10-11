@@ -15,7 +15,7 @@ public class Calculator {
     /** The current spreadsheet. */
     private Spreadsheet _spreadsheet;
 
-    // FIXME add more fields if needed (provavelmente _filename?)
+    private String _filename = "";
 
 
     public void createSpreadsheet(int rows, int columns) {
@@ -36,7 +36,10 @@ public class Calculator {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
+        if (_filename == null || _filename.equals("")) {
+            throw new MissingFileAssociationException();
+        }
+        //...
     }
 
     /**
@@ -49,7 +52,8 @@ public class Calculator {
      * @throws IOException if there is some error while serializing the state of the network to disk.
      */
     public void saveAs(String filename) throws FileNotFoundException, MissingFileAssociationException, IOException {
-        // FIXME implement serialization method
+        _filename = filename;
+        save();
     }
 
     /**
