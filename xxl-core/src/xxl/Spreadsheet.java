@@ -33,7 +33,7 @@ public class Spreadsheet implements Serializable {
 
     public boolean hasChanged() { return _changed; }
 
-    public void setChanged(boolean changed) { _changed = changed }
+    public void setChanged(boolean changed) { _changed = changed; }
     /**
      * Insert specified content in specified range.
      *
