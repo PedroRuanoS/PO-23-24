@@ -77,7 +77,7 @@ public class Calculator {
             _spreadsheet = (Spreadsheet) ois.readObject();
             _spreadsheet.setChanged(false);
         } catch (FileNotFoundException | IOException | ClassNotFoundException) {
-            thorw new UnavailableFileException(e);
+            throw new UnavailableFileException(e);
         }
     }
     
