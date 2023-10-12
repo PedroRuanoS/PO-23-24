@@ -1,6 +1,8 @@
 package xxl.content;
 
-public class StringContent extends Content {
+import java.io.Serializable;
+
+public class StringContent extends Content implements Serializable {
 
     private String _value;
     public StringContent(String content) {

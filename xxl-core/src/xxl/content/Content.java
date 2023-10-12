@@ -2,7 +2,9 @@ package xxl.content;
 
 import xxl.exceptions.UnrecognizedEntryException;
 
-public class Content {
+import java.io.Serializable;
+
+public class Content implements Serializable {
     public Content createContent(String contentSpecification) throws UnrecognizedEntryException {
         if (contentSpecification.matches("^'"))                // REGEX: strings which start with '
             return new StringContent(contentSpecification);

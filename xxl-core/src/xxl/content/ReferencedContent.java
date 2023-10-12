@@ -1,5 +1,7 @@
 package xxl.content;
 
-public class ReferencedContent extends Content {
+import java.io.Serializable;
+
+public class ReferencedContent extends Content implements Serializable {
     public ReferencedContent(String content) {}
 }

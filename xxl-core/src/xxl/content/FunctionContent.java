@@ -1,5 +1,7 @@
 package xxl.content;
 
-public class FunctionContent extends Content {
+import java.io.Serializable;
+
+public class FunctionContent extends Content implements Serializable {
     public FunctionContent(String content) {}
 }
