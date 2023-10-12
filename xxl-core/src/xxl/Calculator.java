@@ -81,9 +81,12 @@ public class Calculator {
         }
     }
     
-    public boolean changed() { 
+    public boolean changed() {
+        if (_spreadsheet == null)
+            return false; 
         return _spreadsheet.hasChanged();
     }
+
 
     /**
      * Read text input file and create domain entities..
