@@ -13,4 +13,7 @@ public class Content {
         /*else throw unrecognized*/
         return null;
     }
+
+    @Override
+    public String toString() {return "hello";}
 }

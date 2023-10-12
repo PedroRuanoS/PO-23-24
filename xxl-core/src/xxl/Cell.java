@@ -12,4 +12,5 @@ public class Cell implements Serializable {
             _content = new Content().createContent(contentSpecification);
     }
 
+    public Content getContent() { return _content; }
 }

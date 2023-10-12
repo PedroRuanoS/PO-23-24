@@ -27,6 +27,13 @@ public class Storage implements Serializable {
     }
 
     public void showContent(Range range) {
-        // FIXME IMPLEMENT THIS
+        for (Integer cell_index: range.getIndexedCells(_rows)) {
+            int row = ((cell_index - 1) / _columns) + 1;
+            int column = ((cell_index - 1) % _columns) + 1;
+            Cell cell = _cells.get(cell_index);
+
+            System.out.println(row + ";" + column + "|" + cell.getContent().toString());
+        }
     }
 }
+
