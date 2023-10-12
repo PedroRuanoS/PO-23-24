@@ -19,6 +19,10 @@ class DoOpen extends Command<Calculator> {
     @Override
     protected final void execute() throws CommandException {
         try {
+            if (_receiver.changed() && Form.confirm(Prompt.saveBeforeExit())) {
+                DoSave cmd = new DoSave(_receiver);
+                cmd.execute();
+            }
             _receiver.load(Form.requestString(Prompt.openFile()));
         } catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);

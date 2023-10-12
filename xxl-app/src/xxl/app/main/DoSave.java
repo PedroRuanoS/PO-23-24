@@ -24,7 +24,7 @@ class DoSave extends Command<Calculator> {
             _receiver.save();
         } catch (MissingFileAssociationException e) {
             try {
-                _receiver.saveAs(Form.requestString(Prompt.saveAs()));
+                _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
             } catch (MissingFileAssociationException e1) {
 
             } catch (IOException e1) {
