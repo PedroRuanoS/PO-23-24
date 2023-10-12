@@ -58,7 +58,7 @@ public class Spreadsheet implements Serializable {
     }
 
     public void importFile(String filename)
-            throws IOException, UnrecognizedEntryException, NumberFormatException, IllegalEntryException {
+            throws IOException, UnrecognizedEntryException, NumberFormatException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             registerDimensions(reader);
 
@@ -75,8 +75,7 @@ public class Spreadsheet implements Serializable {
         }
     }
 
-    private void registerDimensions(BufferedReader reader) // add exceptions
-            throws IOException, NumberFormatException /*,IllegalEntryException*/ {
+    private void registerDimensions(BufferedReader reader) throws IOException, NumberFormatException {
         String[] line_rows = reader.readLine().split("=");
         String[] line_columns = reader.readLine().split("=");
 

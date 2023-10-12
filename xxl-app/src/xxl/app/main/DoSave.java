@@ -15,7 +15,7 @@ class DoSave extends Command<Calculator> {
 
     DoSave(Calculator receiver) {
         super(Label.SAVE, receiver, xxl -> xxl.getSpreadsheet() != null);
-        addStringField("filename", Prompt.newSaveAs());
+        //addStringField("filename", Prompt.newSaveAs()); FIXME REMOVE THIS
     }
 
     @Override
@@ -24,7 +24,7 @@ class DoSave extends Command<Calculator> {
             _receiver.save();
         } catch (MissingFileAssociationException e) {
             try {
-                _receiver.saveAs(stringField("filename"));
+                _receiver.saveAs(Form.requestString(Prompt.saveAs()));
             } catch (MissingFileAssociationException e1) {
 
             } catch (IOException e1) {

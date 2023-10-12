@@ -14,13 +14,12 @@ class DoOpen extends Command<Calculator> {
 
     DoOpen(Calculator receiver) {
         super(Label.OPEN, receiver);
-        addStringField("filename", Prompt.openFile());
     }
 
     @Override
     protected final void execute() throws CommandException {
         try {
-            _receiver.load(stringField("filename"));
+            _receiver.load(Form.requestString(Prompt.openFile()));
         } catch (UnavailableFileException e) {
             throw new FileOpenFailedException(e);
         }

@@ -12,9 +12,6 @@ class DoNew extends Command<Calculator> {
 
     DoNew(Calculator receiver) {
         super(Label.NEW, receiver);
-        addIntegerField("rows", Prompt.lines());
-        addIntegerField("columns", Prompt.columns());
-        
     }
 
     @Override
@@ -23,7 +20,7 @@ class DoNew extends Command<Calculator> {
             DoSave cmd = new DoSave(_receiver);
             cmd.execute();
         }
-        _receiver.createSpreadsheet(integerField("rows"), integerField("columns"));
+        _receiver.createSpreadsheet(Form.requestInteger(Prompt.lines()), Form.requestInteger(Prompt.columns()));
     }
 
 }

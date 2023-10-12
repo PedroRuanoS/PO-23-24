@@ -98,7 +98,7 @@ public class Calculator {
         if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
         try {
             _spreadsheet.importFile(filename);
-        } catch (IOException | UnrecognizedEntryException | NumberFormatException | IllegalEntryException e) {
+        } catch (IOException | UnrecognizedEntryException | NumberFormatException  e) {
             throw new ImportFileException(filename, e);
         }
     }
