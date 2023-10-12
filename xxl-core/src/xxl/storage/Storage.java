@@ -49,7 +49,7 @@ public class Storage implements Serializable {
     
     public String currentCell(int cell_index) {
         int row = (cell_index / _columns) + 1;  // This will do integer division which is what we want
-        int column = (cell_index % _rows) + 1;
+        int column = (cell_index % _columns) + 1;
 
         return String.format("%d;%d", row, column);
     }
