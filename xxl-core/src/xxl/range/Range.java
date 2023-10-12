@@ -13,13 +13,13 @@ public class Range {
         return new CellRange(entry[0]);
     }
 
-    public int computeIndex(int max_rows, int row, int column) {
-        return (row - 1) * max_rows + (column - 1);
+    public int computeIndex(int max_columns, int row, int column) {
+        return (row - 1) * max_columns + (column - 1);
     }
 
     public void processRange() {}
 
-    public List<Integer> getIndexedCells(int max_rows) {
+    public List<Integer> getIndexedCells(int max_columns) {
         return new LinkedList<>();
     }
 }

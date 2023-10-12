@@ -29,12 +29,12 @@ public class IntervalRange extends Range {
         Arrays.sort(_columns);
     }
 
-    public List<Integer> getIndexedCells(int max_rows) {
+    public List<Integer> getIndexedCells(int max_columns) {
         List<Integer> cells = new LinkedList<>();
 
         for (int row_i = _rows[0]; row_i <= _rows[1]; row_i++)
             for (int column_i = _columns[0]; column_i <= _columns[1]; column_i++)
-                cells.add(computeIndex(max_rows, row_i, column_i));
+                cells.add(computeIndex(max_columns, row_i, column_i));
 
         return cells;
     }

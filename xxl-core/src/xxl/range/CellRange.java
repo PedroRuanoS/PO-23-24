@@ -19,9 +19,9 @@ public class CellRange extends Range{
         _column = Integer.parseInt(position[1]);
     }
 
-    public List<Integer> getIndexedCells(int max_rows) {
+    public List<Integer> getIndexedCells(int max_columns) {
         List<Integer> cells = new LinkedList<>();
-        cells.add(computeIndex(max_rows, _row, _column));
+        cells.add(computeIndex(max_columns, _row, _column));
         return cells;
     }
 }
