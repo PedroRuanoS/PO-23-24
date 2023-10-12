@@ -20,7 +20,9 @@ class DoShow extends Command<Spreadsheet> {
     @Override
     protected final void execute() throws CommandException {
         try {
-            _receiver.showContents(stringField("rangeSpecification"));
+            String content = _receiver.showContents(stringField("rangeSpecification"));
+            if (content.length() != 0)
+                _display.popup(content);
         } catch (UnrecognizedEntryException e) {
             throw new InvalidCellRangeException(e.getEntrySpecification());
         }

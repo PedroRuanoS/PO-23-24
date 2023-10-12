@@ -44,19 +44,17 @@ public class Spreadsheet implements Serializable {
         Range range = new Range().createRange(rangeSpecification);
         try {
             range.processRange();
-        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification + "|" + contentSpecification); }
-
-        _storage.insertContent(range, contentSpecification);
-        _changed = true;
+            _storage.insertContent(range, contentSpecification);
+            _changed = true;
+        } catch (NumberFormatException | IllegalEntryException e) { throw new UnrecognizedEntryException(rangeSpecification + "|" + contentSpecification); }
     }
     
-    public void showContents(String rangeSpecification) throws UnrecognizedEntryException {
-        Range range = new Range();
+    public String showContents(String rangeSpecification) throws UnrecognizedEntryException {
+        Range range = new Range().createRange(rangeSpecification);
         try {
             range.processRange();
-        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
-
-        _storage.showContent(range);
+            return _storage.showContent(range);
+        } catch (NumberFormatException | IllegalEntryException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void importFile(String filename)
@@ -77,7 +75,7 @@ public class Spreadsheet implements Serializable {
         }
     }
 
-    private void registerDimensions(BufferedReader reader) // FIXME Make this better looking and add exceptions?
+    private void registerDimensions(BufferedReader reader) // add exceptions
             throws IOException, NumberFormatException /*,IllegalEntryException*/ {
         String[] line_rows = reader.readLine().split("=");
         String[] line_columns = reader.readLine().split("=");
