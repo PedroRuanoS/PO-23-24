@@ -43,6 +43,8 @@ public class Storage implements Serializable {
             Cell cell;
             if ((cell = _cells.get(cell_index)) != null)
                 content += currentCell(cell_index) + "|" + cell.toString();
+            else
+                content += currentCell(cell_index) + "|";
         }
         return content;
     }
