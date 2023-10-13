@@ -21,17 +21,32 @@ public class Calculator {
     /** The current spreadsheet. */
     private Spreadsheet _spreadsheet = null;
 
+    /** The current name of the file. */
     private String _filename = "";
 
-
+    /**
+     * @param rows the rows the spreadsheet will have
+     * @param columns the columns the spreadseet will have
+     */
     public void createSpreadsheet(int rows, int columns) {
         _spreadsheet = new Spreadsheet(rows, columns);
     }
 
     public void createUser() {}
 
+    /**
+     * @return network
+     */
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
+    
+    /**
+     * @return filename
+     */
     public String getFilename() { return _filename; }
+    
+    /**
+     * @param filename the name of the file
+     */
     public void setFilename(String filename) { _filename = filename; }
     
     /**
@@ -81,6 +96,9 @@ public class Calculator {
         }
     }
     
+    /**
+     * @return changed?
+     */
     public boolean changed() {
         if (_spreadsheet == null)
             return false; 
