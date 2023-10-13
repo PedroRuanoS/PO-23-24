@@ -1,9 +1,14 @@
 package xxl.content;
 
 import java.io.Serializable;
+import xxl.functions.FunctionStrategy;
 
 public class FunctionContent extends Content implements Serializable {
-    public FunctionContent(String content) {}
+    private FunctionStrategy _strategy;
+    private String _content;
+    public FunctionContent(String content) {
+        
+    }   
 
     @Override
     public String stringValue() {

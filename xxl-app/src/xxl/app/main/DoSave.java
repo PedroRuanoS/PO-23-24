@@ -15,7 +15,6 @@ class DoSave extends Command<Calculator> {
 
     DoSave(Calculator receiver) {
         super(Label.SAVE, receiver, xxl -> xxl.getSpreadsheet() != null);
-        //addStringField("filename", Prompt.newSaveAs()); FIXME REMOVE THIS
     }
 
     @Override

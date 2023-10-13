@@ -23,8 +23,7 @@ public class Spreadsheet implements Serializable {
     private CutBuffer _cutBuffer;
     private boolean _changed = true;
 
-    public Spreadsheet() {
-    }
+    public Spreadsheet() {}
 
     public Spreadsheet(int rows, int columns) {
         _storage = new Storage(rows, columns);
