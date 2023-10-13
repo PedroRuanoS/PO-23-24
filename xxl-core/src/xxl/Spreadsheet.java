@@ -2,7 +2,12 @@ package xxl;
 
 // FIXME import classes
 
-import java.io.*;
+import java.io.Serial;
+import java.io.Serializable;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import xxl.exceptions.IllegalEntryException;
 import xxl.exceptions.UnrecognizedEntryException;

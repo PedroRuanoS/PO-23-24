@@ -7,7 +7,6 @@ import xxl.exceptions.UnrecognizedEntryException;
 import xxl.range.Range;
 
 import java.io.Serializable;
-import java.io.UncheckedIOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,28 +38,28 @@ public class Storage implements Serializable {
         }
     }
 
-    public String showContent(Range range) throws IllegalEntryException {  // void??
+    public String showContent(Range range) throws IllegalEntryException {
         String content = "";
         for (int cell_index: range.getIndexedCells(_columns)) {
-            if (cell_index + 1 > _size || cell_index + 1 < 0)
+            if (cell_index + 1 > _size || cell_index + 1 < 0)                   // check if index is out of bounds
                 throw new IllegalEntryException(currentCell(cell_index));
 
             Cell cell;
-            String default_output = "\n" + currentCell(cell_index) + "|";
+            String default_output = "\n" + currentCell(cell_index) + "|";       // Common part of the formatting structure
 
             if ((cell = _cells.get(cell_index)) != null) {
-                if (cell.toString().matches("^'.*") || cell.toString().matches("^-?\\d+$")) {
+                if (cell.toString().matches("^'.*") ||
+                        cell.toString().matches("^-?\\d+$")) {           // Match Integers
                     content += default_output + cell.toString();
                 }
-                else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {
-                    Cell reference = _cells.get(cell.getContent().getIndex());
+                else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {   // Match References
+                    Cell reference = _cells.get(cell.getContent().getIndex());  // check if reference exists
                     if (reference != null)
-                        //content += default_output + reference.getContent().stringValue() + cell.toString();
                         content += default_output + cell.getContent().intValue() + cell.toString();
                     else
                         content += default_output + "#VALUE" + cell.getContent().toString();
                 }
-                else if (cell.toString().matches("^=.+")) {
+                else if (cell.toString().matches("^=.+")) {              // Match Functions
                     FunctionContent function = (FunctionContent) cell.getContent();
                     content += default_output + function.executeOperation() + cell.toString();
                 }
@@ -68,11 +67,11 @@ public class Storage implements Serializable {
             else
                 content += "\n" + currentCell(cell_index) + "|";
         }
-        return content.substring(1);
+        return content.substring(1);                                 // remove unwanted first \n
     }
     
     public String currentCell(int cell_index) {
-        int row = (cell_index / _columns) + 1;  // This will do integer division which is what we want
+        int row = (cell_index / _columns) + 1;
         int column = (cell_index % _columns) + 1;
 
         return String.format("%d;%d", row, column);

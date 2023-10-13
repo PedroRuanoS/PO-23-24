@@ -1,37 +1,36 @@
 package xxl.content;
 
 import java.io.Serializable;
-import java.util.Map;
 
-import xxl.Cell;
 import xxl.functions.*;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.Storage;
 
 public class FunctionContent extends Content implements Serializable {
     private String _function_raw;
-    private FunctionStrategy _strategy;
     private Storage _storage;
-    private Content _op1;
-    private Content _op2;
+    private Content _operand1;
+    private Content _operand2;
+
+    private FunctionStrategy _strategy;
 
     public FunctionContent(String content, int max_columns, Storage storage) throws UnrecognizedEntryException {
         _storage = storage;
         _function_raw = content;
-        String function = content.substring(1, content.indexOf("("));
+        String function_name = content.substring(1, content.indexOf("("));
         String arg1 = content.substring(content.indexOf("(") + 1, content.indexOf(","));
         String arg2 = content.substring(content.indexOf(",") + 1, content.indexOf(")"));
 
-        _op1 = parse(arg1, max_columns);
-        _op2 = parse(arg2, max_columns);
+        _operand1 = parse(arg1, max_columns);
+        _operand2 = parse(arg2, max_columns);
 
-        if (function.equals("ADD"))
+        if (function_name.equals("ADD"))
             setStrategy(new AddFunction());
-        else if (function.equals("SUB"))
+        else if (function_name.equals("SUB"))
             setStrategy(new SubFunction());
-        else if (function.equals("MUL"))
+        else if (function_name.equals("MUL"))
             setStrategy(new MulFunction());
-        else if (function.equals("DIV"))
+        else if (function_name.equals("DIV"))
             setStrategy(new DivFunction());
         else
             throw new UnrecognizedEntryException(content);
@@ -54,7 +53,7 @@ public class FunctionContent extends Content implements Serializable {
     }
 
     public int executeOperation() {
-        return _strategy.executeOperation(_op1, _op2);
+        return _strategy.executeOperation(_operand1, _operand2);
     }
 
     @Override

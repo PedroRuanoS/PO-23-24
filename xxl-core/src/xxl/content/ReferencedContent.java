@@ -1,14 +1,9 @@
 package xxl.content;
 
 import java.io.Serializable;
-import java.net.Inet4Address;
-import java.util.Iterator;
-import java.util.Map;
 
-import xxl.Spreadsheet;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.range.Range;
-import xxl.Cell;
 import xxl.storage.Storage;
 
 public class ReferencedContent extends Content implements Serializable {
