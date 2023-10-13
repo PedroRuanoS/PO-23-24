@@ -53,7 +53,7 @@ public class Storage implements Serializable {
                     if (reference != null)
                         content += "\n" + currentCell(cell_index) + "|" + reference.getContent().stringValue() + cell.toString();
                     else
-                        content += "\n" + currentCell(cell_index) + "|";
+                        content += "\n" + currentCell(cell_index) + "|" + "#VALUE" + cell.getContent().toString();
                 }
                 //content += "\n" + currentCell(cell_index) + "|" + cell.toString();
             }
