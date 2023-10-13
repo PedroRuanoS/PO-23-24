@@ -25,14 +25,14 @@ class DoSave extends Command<Calculator> {
             try {
                 _receiver.saveAs(Form.requestString(Prompt.newSaveAs()));
             } catch (MissingFileAssociationException e1) {
-
+                e1.printStackTrace();
             } catch (IOException e1) {
-
+                e1.printStackTrace();
             }
         } catch (FileNotFoundException e) {
-
+            e.printStackTrace();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }       
 }
