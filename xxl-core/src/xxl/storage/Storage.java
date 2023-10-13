@@ -44,18 +44,24 @@ public class Storage implements Serializable {
                 throw new IllegalEntryException(currentCell(cell_index));
 
             Cell cell;
+            String default_output = "\n" + currentCell(cell_index) + "|";
+
             if ((cell = _cells.get(cell_index)) != null) {
                 if (cell.toString().matches("^'.*") || cell.toString().matches("^-?\\d+$")) {
-                    content += "\n" + currentCell(cell_index) + "|" + cell.toString();
+                    content += default_output + cell.toString();
                 }
                 else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {
                     Cell reference = _cells.get(cell.getContent().intValue());
                     if (reference != null)
-                        content += "\n" + currentCell(cell_index) + "|" + reference.getContent().stringValue() + cell.toString();
+                        //content += default_output + reference.getContent().stringValue() + cell.toString();
+                        content += default_output + cell.getContent().intValue() + cell.toString();
                     else
-                        content += "\n" + currentCell(cell_index) + "|" + "#VALUE" + cell.getContent().toString();
+                        content += default_output + "#VALUE" + cell.getContent().toString();
                 }
-                //content += "\n" + currentCell(cell_index) + "|" + cell.toString();
+                else if (cell.toString().matches("^=.+")) {
+                    FunctionContent function = (FunctionContent) cell.getContent();
+                    content += default_output + function.executeOperation() + cell.toString();
+                }
             }
             else
                 content += "\n" + currentCell(cell_index) + "|";
@@ -76,9 +82,9 @@ public class Storage implements Serializable {
         if (contentSpecification.matches("^-?\\d+$"))             // REGEX: Integers
             return new IntegerContent(contentSpecification);
         if (contentSpecification.matches("^=[1-9]+;[1-9]+$"))     // REGEX: Reference to other cells
-            return new ReferencedContent(contentSpecification, _columns);
+            return new ReferencedContent(contentSpecification, _columns, _cells);
         if (contentSpecification.matches("^=.+")) {               // REGEX: Find functions
-            return new FunctionContent(contentSpecification, _columns);
+            return new FunctionContent(contentSpecification, _columns, _cells);
         }
         else {
             throw new UnrecognizedEntryException(contentSpecification);

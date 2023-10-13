@@ -9,4 +9,5 @@ public abstract class Content implements Serializable {
     public abstract int intValue();
 
     public abstract Literal value();
+
 }
