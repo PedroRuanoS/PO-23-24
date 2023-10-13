@@ -1,8 +1,11 @@
 package xxl.functions;
 
+import xxl.content.Content;
+import xxl.content.Literal;
+
 public class Add implements FunctionStrategy {
     @Override
-    public int calculate(int[] values) {
-        return values[0] + values[1];
+    public int executeOperation(Content op1, Content op2) {
+        return op1.intValue() + op2.intValue();
     }
 }

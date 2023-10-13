@@ -81,7 +81,6 @@ public class Storage implements Serializable {
             return new FunctionContent(contentSpecification);
         }
         else {
-            System.out.println("oops!");
             throw new UnrecognizedEntryException(contentSpecification);
         }
     }
