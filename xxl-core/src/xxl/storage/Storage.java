@@ -50,7 +50,10 @@ public class Storage implements Serializable {
                 }
                 else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {
                     Cell reference = _cells.get(cell.getContent().intValue());
-                    content += "\n" + currentCell(cell_index) + "|" + reference.getContent().stringValue() + cell.toString();
+                    if (reference != null)
+                        content += "\n" + currentCell(cell_index) + "|" + reference.getContent().stringValue() + cell.toString();
+                    else
+                        content += "\n" + currentCell(cell_index) + "|";
                 }
                 //content += "\n" + currentCell(cell_index) + "|" + cell.toString();
             }
