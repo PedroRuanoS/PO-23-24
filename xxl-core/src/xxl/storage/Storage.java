@@ -78,7 +78,7 @@ public class Storage implements Serializable {
         if (contentSpecification.matches("^=[1-9]+;[1-9]+$"))     // REGEX: Reference to other cells
             return new ReferencedContent(contentSpecification, _columns);
         if (contentSpecification.matches("^=.+")) {               // REGEX: Find functions
-            return new FunctionContent(contentSpecification);
+            return new FunctionContent(contentSpecification, _columns);
         }
         else {
             throw new UnrecognizedEntryException(contentSpecification);
