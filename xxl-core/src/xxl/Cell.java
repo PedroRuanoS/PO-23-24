@@ -21,9 +21,6 @@ public class Cell implements Serializable {
 
     public void setContent(Content content) { _content = content; }
 
-    public Literal value() {
-        return _content.value();
-    }
 
     @Override
     public String toString() {

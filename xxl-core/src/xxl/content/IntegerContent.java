@@ -10,15 +10,14 @@ public class IntegerContent extends Literal implements Serializable {
 
     public int intValue() { return _value;}
 
-    public String stringValue() { return toString(); }
+    @Override
+    public int getIndex() {
+        return 0;
+    }
 
     @Override
     public String toString() {
         return String.valueOf(_value);
     }
 
-    @Override
-    public Literal value() {
-        return null;
-    }
 }

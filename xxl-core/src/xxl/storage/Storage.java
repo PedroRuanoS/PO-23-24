@@ -25,6 +25,8 @@ public class Storage implements Serializable {
         _cells = new HashMap<>(_size);
     }
 
+    public Map<Integer, Cell> getCells() { return _cells; }
+
     public void insertContent(Range range, String contentSpecification) throws UnrecognizedEntryException, IllegalEntryException {
         for (int cell_index: range.getIndexedCells(_columns)) {
             if (cell_index + 1 > _size || cell_index + 1 < 0) {
@@ -51,7 +53,7 @@ public class Storage implements Serializable {
                     content += default_output + cell.toString();
                 }
                 else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {
-                    Cell reference = _cells.get(cell.getContent().intValue());
+                    Cell reference = _cells.get(cell.getContent().getIndex());
                     if (reference != null)
                         //content += default_output + reference.getContent().stringValue() + cell.toString();
                         content += default_output + cell.getContent().intValue() + cell.toString();
@@ -82,9 +84,9 @@ public class Storage implements Serializable {
         if (contentSpecification.matches("^-?\\d+$"))             // REGEX: Integers
             return new IntegerContent(contentSpecification);
         if (contentSpecification.matches("^=[1-9]+;[1-9]+$"))     // REGEX: Reference to other cells
-            return new ReferencedContent(contentSpecification, _columns, _cells);
+            return new ReferencedContent(contentSpecification, _columns, this);
         if (contentSpecification.matches("^=.+")) {               // REGEX: Find functions
-            return new FunctionContent(contentSpecification, _columns, _cells);
+            return new FunctionContent(contentSpecification, _columns, this);
         }
         else {
             throw new UnrecognizedEntryException(contentSpecification);

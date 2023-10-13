@@ -6,16 +6,17 @@ import java.util.Map;
 import xxl.Cell;
 import xxl.functions.*;
 import xxl.exceptions.UnrecognizedEntryException;
+import xxl.storage.Storage;
 
 public class FunctionContent extends Content implements Serializable {
     private String _function_raw;
     private FunctionStrategy _strategy;
-    private Map<Integer, Cell> _cells;
+    private Storage _storage;
     private Content _op1;
     private Content _op2;
 
-    public FunctionContent(String content, int max_columns, Map<Integer, Cell> cells) throws UnrecognizedEntryException {
-        _cells = cells;
+    public FunctionContent(String content, int max_columns, Storage storage) throws UnrecognizedEntryException {
+        _storage = storage;
         _function_raw = content;
         String function = content.substring(1, content.indexOf("("));
         String arg1 = content.substring(content.indexOf("(") + 1, content.indexOf(","));
@@ -46,7 +47,7 @@ public class FunctionContent extends Content implements Serializable {
             return new IntegerContent(arg);
         else if (arg.matches("^[1-9]+;[1-9]+$")) {     // REGEX: Reference to other cells
             arg = "=" + arg;
-            return new ReferencedContent(arg, max_columns, _cells);
+            return new ReferencedContent(arg, max_columns, _storage);
         }
         else
             throw new UnrecognizedEntryException(arg);
@@ -62,17 +63,13 @@ public class FunctionContent extends Content implements Serializable {
     }
 
     @Override
-    public String stringValue() {
-        return null;
-    }
-
-    @Override
     public int intValue() {
         return 0;
     }
 
     @Override
-    public Literal value() {
-        return null;
+    public int getIndex() {
+        return 0;
     }
+
 }

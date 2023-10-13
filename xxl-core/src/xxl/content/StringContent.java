@@ -17,10 +17,6 @@ public class StringContent extends Literal implements Serializable {
         return "'" + _value;
     }
 
-    @Override
-    public String stringValue() {
-        return _value;
-    }
 
     @Override
     public int intValue() {
@@ -28,7 +24,8 @@ public class StringContent extends Literal implements Serializable {
     }
 
     @Override
-    public Literal value() {
-        return this;
+    public int getIndex() {
+        return 0;
     }
+
 }

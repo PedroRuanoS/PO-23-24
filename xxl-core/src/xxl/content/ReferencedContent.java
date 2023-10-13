@@ -8,14 +8,15 @@ import java.util.Map;
 import xxl.Spreadsheet;
 import xxl.range.Range;
 import xxl.Cell;
+import xxl.storage.Storage;
 
 public class ReferencedContent extends Content implements Serializable {
     private String _referenced_cell;
     private int _referenced_index;
-    private Map<Integer, Cell> _cells;
+    private Storage _storage;
 
-    public ReferencedContent(String content, int max_columns, Map<Integer, Cell> cells) {
-        _cells = cells;
+    public ReferencedContent(String content, int max_columns, Storage storage) {
+        _storage = storage;
         _referenced_cell = content.substring(1);
 
         Range range = new Range().createRange(_referenced_cell);
@@ -29,18 +30,12 @@ public class ReferencedContent extends Content implements Serializable {
         return "=" + _referenced_cell;
     }
 
-    @Override
-    public String stringValue() {
-        return _referenced_cell;
-    }
 
     @Override
     public int intValue() {
-        return _cells.get(_referenced_index).getContent().intValue();
+        return _storage.getCells().get(_referenced_index).getContent().intValue();
     }
 
-    @Override
-    public Literal value() {
-        return null;
-    }
+    public int getIndex() { return _referenced_index; }
+
 }
