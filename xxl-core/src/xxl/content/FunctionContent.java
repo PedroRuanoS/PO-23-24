@@ -2,7 +2,9 @@ package xxl.content;
 
 import xxl.visitor.ContentVisitor;
 
-public class FunctionContent extends Content {
+import java.io.Serializable;
+
+public class FunctionContent extends Content implements Serializable {
     private String _functionName;
 
     public FunctionContent(String content) {

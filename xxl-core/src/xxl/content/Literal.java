@@ -1,5 +1,7 @@
 package xxl.content;
 
-public abstract class Literal<Type> extends Content {
+import java.io.Serializable;
+
+public abstract class Literal<Type> extends Content implements Serializable {
     public abstract Type getValue();
 }

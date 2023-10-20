@@ -7,12 +7,7 @@ import java.io.Serializable;
 public class Cell implements Serializable {
     private Content _content = null;
 
+    public Cell(Content content) { _content = content; }
+
     public Content getContent() { return _content; }
-
-    public void setContent(Content content) { _content = content; }
-
-    @Override
-    public String toString() {
-        return _content.toString();
-    }
 }

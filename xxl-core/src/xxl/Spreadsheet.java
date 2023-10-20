@@ -9,11 +9,11 @@ import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import xxl.exceptions.IllegalEntryException;
+import xxl.content.Content;
+import xxl.content.ContentBuilder;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.Storage;
-import xxl.range.Range;
 
 /**
  * Class representing a spreadsheet.
@@ -45,20 +45,13 @@ public class Spreadsheet implements Serializable {
      * @param contentSpecification
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
-        Range range = new Range().createRange(rangeSpecification);
-        try {
-            range.processRange();
-            _storage.insertContent(range, contentSpecification);
-            _changed = true;
-        } catch (NumberFormatException | IllegalEntryException e) { throw new UnrecognizedEntryException(rangeSpecification + "|" + contentSpecification); }
-    }
-    
-    public String showContents(String rangeSpecification) throws UnrecognizedEntryException {
-        Range range = new Range().createRange(rangeSpecification);
-        try {
-            range.processRange();
-            return _storage.showContent(range);
-        } catch (NumberFormatException | IllegalEntryException e) { throw new UnrecognizedEntryException(rangeSpecification); }
+        Range range = new Range(rangeSpecification);
+
+        ContentBuilder contentBuilder = new ContentBuilder();
+        Content content = contentBuilder.build(contentSpecification);
+
+        _storage.insert(range, content);
+        _changed = true;
     }
 
     public void importFile(String filename)

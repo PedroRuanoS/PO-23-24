@@ -2,7 +2,9 @@ package xxl.content;
 
 import xxl.visitor.ContentVisitor;
 
-public class IntegerLiteral extends Literal<Integer> {
+import java.io.Serializable;
+
+public class IntegerLiteral extends Literal<Integer> implements Serializable {
     private int _value;
 
     public IntegerLiteral(String content) {
