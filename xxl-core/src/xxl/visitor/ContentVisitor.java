@@ -13,4 +13,6 @@ public interface ContentVisitor {
     void visitReference(ReferencedContent referenceContent);
 
     void visitFunction(FunctionContent functionContent);
+
+    void visitAddress(int[] address, boolean last);
 }

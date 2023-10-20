@@ -15,5 +15,5 @@ public class FunctionContent extends Content implements Serializable {
     }
 
     @Override
-    public void accept(ContentVisitor visitor) { visitor.visitFunction(this); }
+    public void requestContent(ContentVisitor visitor) { visitor.visitFunction(this); }
 }

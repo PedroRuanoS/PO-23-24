@@ -6,5 +6,7 @@ import java.io.Serializable;
 
 public class MulFunction implements FunctionStrategy , Serializable {
     @Override
-    public int executeOperation(Content op1, Content op2) { return op1.intValue() * op2.intValue(); }
+    public int executeOperation(Content op1, Content op2) {
+        return 0;
+    }
 }

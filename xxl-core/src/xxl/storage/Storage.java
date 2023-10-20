@@ -11,28 +11,17 @@ import java.util.Map;
 public class Storage implements Serializable {
     private int _rowCount;
     private int _columnCount;
-
     private Map<Integer, Cell> _cells;
 
     public Storage(int rowCount, int columnCount) {
         _rowCount = rowCount;
         _columnCount = columnCount;
-        _cells = new HashMap<>(_rowCount * _columnCount);
+        _cells = new HashMap<>(rowCount * columnCount);
     }
 
-    public void insert(Range range, Content content) {
-        for (int[] address : range.getRange()) {
-            Cell newCell = new Cell(content);
-            _cells.put(computeCellIndex(address), newCell);
-        }
-    }
+    public int getRowCount() { return _rowCount; }
 
-    public void extract(Range range) {
+    public int getColumnCount() { return _columnCount;}
 
-    }
-
-    private int computeCellIndex(int[] address) {
-        return (address[0] - 1) * _columnCount + (address[1] - 1);  // address -> [row, column]
-    }
-
+    public Map<Integer, Cell> getCells() { return _cells; }
 }

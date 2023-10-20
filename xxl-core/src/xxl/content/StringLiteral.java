@@ -12,7 +12,7 @@ public class StringLiteral extends Literal<String> implements Serializable {
     }
 
     @Override
-    public void accept(ContentVisitor visitor) {visitor.visitString(this);}
+    public void requestContent(ContentVisitor visitor) {visitor.visitString(this);}
 
     @Override
     public String getValue() {

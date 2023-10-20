@@ -13,5 +13,5 @@ public class ReferencedContent extends Content implements Serializable {
     }
 
     @Override
-    public void accept(ContentVisitor visitor) { visitor.visitReference(this); }
+    public void requestContent(ContentVisitor visitor) { visitor.visitReference(this); }
 }

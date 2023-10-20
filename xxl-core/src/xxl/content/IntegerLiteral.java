@@ -12,7 +12,7 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
     }
 
     @Override
-    public void accept(ContentVisitor visitor) { visitor.visitInteger(this); }
+    public void requestContent(ContentVisitor visitor) { visitor.visitInteger(this); }
 
     @Override
     public Integer getValue() {

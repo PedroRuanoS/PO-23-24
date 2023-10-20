@@ -13,7 +13,9 @@ import xxl.content.Content;
 import xxl.content.ContentBuilder;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
+import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
+import xxl.visitor.ContentVisitor;
 
 /**
  * Class representing a spreadsheet.
@@ -24,14 +26,14 @@ public class Spreadsheet implements Serializable {
     private static final long serialVersionUID = 202308312359L;
 
 
-    private Storage _storage;
+    private SpreadsheetData _sheetData;
     private CutBuffer _cutBuffer;
     private boolean _changed = true;
 
     public Spreadsheet() {}
 
     public Spreadsheet(int rows, int columns) {
-        _storage = new Storage(rows, columns);
+        _sheetData = new SpreadsheetData(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
     }
 
@@ -50,8 +52,13 @@ public class Spreadsheet implements Serializable {
         ContentBuilder contentBuilder = new ContentBuilder();
         Content content = contentBuilder.build(contentSpecification);
 
-        _storage.insert(range, content);
+        _sheetData.insert(range, content);
         _changed = true;
+    }
+
+    public void requestContents(String rangeSpecfication, ContentVisitor visitor) throws UnrecognizedEntryException {
+        Range range = new Range(rangeSpecfication);
+        _sheetData.requestContents(range, visitor);
     }
 
     public void importFile(String filename)
@@ -79,7 +86,7 @@ public class Spreadsheet implements Serializable {
         int rows = Integer.parseInt(line_rows[1]);
         int columns = Integer.parseInt(line_columns[1]);
 
-        _storage = new Storage(rows, columns);
+        _sheetData = new SpreadsheetData(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
     }
 }
