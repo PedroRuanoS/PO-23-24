@@ -1,4 +1,5 @@
 package xxl.content;
 
-public abstract class Literal extends Content {
+public abstract class Literal<Type> extends Content {
+    public abstract Type getValue();
 }

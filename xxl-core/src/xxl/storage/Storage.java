@@ -40,34 +40,12 @@ public class Storage implements Serializable {
 
     public String showContent(Range range) throws IllegalEntryException {
         String content = "";
-        for (int cell_index: range.getIndexedCells(_columns)) {
-            if (cell_index + 1 > _size || cell_index + 1 < 0)                   // check if index is out of bounds
-                throw new IllegalEntryException(currentCell(cell_index));
+        for (int cell_index : range.getIndexedCells(_columns)) {
+            Cell current_cell = _cells.get(cell_index);
 
-            Cell cell;
-            String default_output = "\n" + currentCell(cell_index) + "|";       // Common part of the formatting structure
-
-            if ((cell = _cells.get(cell_index)) != null) {
-                if (cell.toString().matches("^'.*") ||
-                        cell.toString().matches("^-?\\d+$")) {           // Match Integers
-                    content += default_output + cell.toString();
-                }
-                else if (cell.toString().matches("^=[1-9]+;[1-9]+$")) {   // Match References
-                    Cell reference = _cells.get(cell.getContent().getIndex());  // check if reference exists
-                    if (reference != null)
-                        content += default_output + cell.getContent().intValue() + cell.toString();
-                    else
-                        content += default_output + "#VALUE" + cell.getContent().toString();
-                }
-                else if (cell.toString().matches("^=.+")) {              // Match Functions
-                    FunctionContent function = (FunctionContent) cell.getContent();
-                    content += default_output + function.executeOperation() + cell.toString();
-                }
-            }
-            else
-                content += "\n" + currentCell(cell_index) + "|";
         }
-        return content.substring(1);                                 // remove unwanted first \n
+
+        return content.substring(1);
     }
     
     public String currentCell(int cell_index) {
@@ -79,12 +57,12 @@ public class Storage implements Serializable {
 
     public Content createContent(String contentSpecification) throws UnrecognizedEntryException {
         if (contentSpecification.matches("^'.*"))                 // REGEX: strings which start with
-            return new StringContent(contentSpecification);
+            return new StringLiteral(contentSpecification);
         if (contentSpecification.matches("^-?\\d+$"))             // REGEX: Integers
-            return new IntegerContent(contentSpecification);
+            return new IntegerLiteral(contentSpecification);
         if (contentSpecification.matches("^=[1-9]+;[1-9]+$"))     // REGEX: Reference to other cells
-            return new ReferencedContent(contentSpecification, _columns, this);
-        if (contentSpecification.matches("^=.+")) {               // REGEX: Find functions
+            return new ReferencedContent(contentSpecification);
+        if (contentSpecification.matches("^=.+")) {               // REGEX: Possible functions
             return new FunctionContent(contentSpecification, _columns, this);
         }
         else {
