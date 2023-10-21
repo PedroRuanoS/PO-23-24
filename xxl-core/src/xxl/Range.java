@@ -1,10 +1,11 @@
 package xxl;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Range {
+public class Range implements Serializable {
     private int[] _rowAddresses = new int[2];      // [first row, last row]
     private int[] _columnAddresses = new int[2];   // [first column, last column]
 
