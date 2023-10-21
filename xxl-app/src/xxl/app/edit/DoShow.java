@@ -5,6 +5,7 @@ import pt.tecnico.uilib.menus.CommandException;
 import xxl.Spreadsheet;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.visitor.RenderContent;
+import xxl.visitor.RenderedContentVisitor;
 // FIXME import classes
 
 /**
@@ -20,7 +21,7 @@ class DoShow extends Command<Spreadsheet> {
     @Override
     protected final void execute() throws CommandException {
         try {
-            RenderContent renderer = new RenderContent();
+            RenderedContentVisitor renderer = new RenderContent();
             _receiver.requestContents(stringField("rangeSpecification"), renderer);
 
             String output = renderer.toString().trim();

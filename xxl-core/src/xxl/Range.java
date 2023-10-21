@@ -28,8 +28,8 @@ public class Range {
 
     public List<int[]> getRange() {
         List<int[]> range = new LinkedList<>();
-        for (int i = _columnAddresses[0]; i <= _columnAddresses[1]; i++) {
-            for (int j = _rowAddresses[0]; j <= _rowAddresses[1]; j++) {
+        for (int i = _rowAddresses[0]; i <= _rowAddresses[1]; i++) {
+            for (int j = _columnAddresses[0]; j <= _columnAddresses[1]; j++) {
                 int[] address = {i, j};
                 range.add(address);
             }

@@ -12,7 +12,8 @@ public class ContentBuilder {
             return new StringLiteral(contentSpecification);
         if (contentSpecification.matches(INTEGER_REGEX))
             return new IntegerLiteral(contentSpecification);
-        // FIXME ADD REMAINING
+        if (contentSpecification.matches(REFERENCE_REGEX))
+            return new ReferencedContent(contentSpecification);
 
         return null;
     }
