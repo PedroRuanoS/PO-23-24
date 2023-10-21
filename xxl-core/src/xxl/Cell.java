@@ -8,7 +8,7 @@ import xxl.visitor.ContentVisitor;
 import java.io.Serializable;
 
 public class Cell implements Serializable {
-    private Content _content = null;
+    private Content _content;
 
     public Cell(Content content) { _content = content; }
 

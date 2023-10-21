@@ -62,7 +62,7 @@ public class Calculator {
         }
         try (ObjectOutputStream oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(_filename)))) {
             oos.writeObject(_spreadsheet);
-            _spreadsheet.setChanged(false);
+            _spreadsheet.changed(false);
         }
     }
 
@@ -90,7 +90,7 @@ public class Calculator {
         _filename = filename;
         try (ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(filename)))) {
             _spreadsheet = (Spreadsheet) ois.readObject();
-            _spreadsheet.setChanged(false);
+            _spreadsheet.changed(false);
         } catch (IOException | ClassNotFoundException e) {
             throw new UnavailableFileException(filename);
         }

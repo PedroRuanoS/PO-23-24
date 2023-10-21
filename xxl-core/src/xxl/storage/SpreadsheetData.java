@@ -32,7 +32,7 @@ public class SpreadsheetData extends Storage {
         }
     }
 
-    public void readContents(Range range, ReadContent reader) {
+    public void readContents(Range range, ContentVisitor reader) {
         for (int[] address: range.getRange()) {
             Cell currentCell = getCells().get(computeCellIndex(address));
             boolean empty = (currentCell == null);
@@ -42,26 +42,11 @@ public class SpreadsheetData extends Storage {
         }
     }
 
-    /*for (int[] address: range.getRange()) {
-            Cell currentCell = getCells().get(computeCellIndex(address));
-            boolean empty = (currentCell == null);
-
-            ReadContent reader = null;
-            if (!silent)
-                reader = new ReadContent();
-
-            if (!silent)
-                visitor.visitAddress(address, empty);
-
-            if (!empty)
-                if (!silent)
-                    currentCell.requestContent(reader, this);
-                else
-                    currentCell.requestContent(visitor, this);
-
-            if (!silent)
-                visitor.
-        }*/
+    public void deleteContents(Range range) {
+        for (int[] address: range.getRange()) {
+            getCells().remove(computeCellIndex(address));
+        }
+    }
 
 
 

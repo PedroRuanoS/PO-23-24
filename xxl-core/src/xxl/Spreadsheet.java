@@ -14,7 +14,6 @@ import xxl.content.ContentBuilder;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.SpreadsheetData;
-import xxl.visitor.ContentVisitor;
 import xxl.visitor.RenderedContentVisitor;
 
 /**
@@ -39,7 +38,7 @@ public class Spreadsheet implements Serializable {
 
     public boolean hasChanged() { return _changed; }
 
-    public void setChanged(boolean changed) { _changed = changed; }
+    public void changed(boolean value) { _changed = value; }
     /**
      * Insert specified content in specified range.
      *
@@ -53,12 +52,20 @@ public class Spreadsheet implements Serializable {
         Content content = contentBuilder.build(contentSpecification);
 
         _sheetData.insert(range, content);
-        _changed = true;
+        changed(true);
     }
 
     public void requestContents(String rangeSpecfication, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecfication);
+
         _sheetData.requestContents(range, renderer);
+    }
+
+    public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
+        Range range = new Range(rangeSpecification);
+
+        _sheetData.deleteContents(range);
+        changed(true);
     }
 
     public void importFile(String filename)
