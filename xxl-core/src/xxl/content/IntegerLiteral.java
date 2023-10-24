@@ -2,6 +2,7 @@ package xxl.content;
 
 import xxl.Spreadsheet;
 import xxl.storage.SpreadsheetData;
+import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 
 import java.io.Serializable;
@@ -14,7 +15,7 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
     }
 
     @Override
-    public void requestContent(ContentVisitor visitor, SpreadsheetData data) { visitor.visitInteger(this); }
+    public void requestContent(ContentVisitor visitor, Storage data) { visitor.visitInteger(this); }
 
     @Override
     public Integer getValue() {

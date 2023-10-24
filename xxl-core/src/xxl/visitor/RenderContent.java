@@ -5,6 +5,7 @@ import xxl.content.IntegerLiteral;
 import xxl.content.ReferencedContent;
 import xxl.content.StringLiteral;
 import xxl.storage.SpreadsheetData;
+import xxl.storage.Storage;
 
 public class RenderContent implements RenderedContentVisitor {
     private String _rendered = "";
@@ -31,7 +32,7 @@ public class RenderContent implements RenderedContentVisitor {
     }
 
     @Override
-    public void visitReference(ReferencedContent referenceContent, SpreadsheetData data) {
+    public void visitReference(ReferencedContent referenceContent, Storage data) {
         _readContent.visitReference(referenceContent, data);
         _rendered += contentValue() +
                 "=" + getAddress(referenceContent.getCellAddress().getRange().get(0)) + "\n";

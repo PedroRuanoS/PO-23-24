@@ -18,11 +18,11 @@ class DoCopy extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-        /*try {
+        try {
             _receiver.copyContents(stringField("rangeSpecification"));
         } catch (UnrecognizedEntryException e) {
             throw new InvalidCellRangeException(e.getEntrySpecification());
-        }*/
+        }
     }
 
 }

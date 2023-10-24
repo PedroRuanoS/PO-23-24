@@ -2,6 +2,7 @@ package xxl.visitor;
 
 import xxl.content.*;
 import xxl.storage.SpreadsheetData;
+import xxl.storage.Storage;
 
 public class ReadContent implements ContentVisitor {
     private Literal<?> _literalContent;
@@ -17,7 +18,7 @@ public class ReadContent implements ContentVisitor {
     }
 
     @Override
-    public void visitReference(ReferencedContent referenceContent, SpreadsheetData data) {
+    public void visitReference(ReferencedContent referenceContent, Storage data) {
         data.readContents(referenceContent.getCellAddress(), this);
     }
 
@@ -25,9 +26,5 @@ public class ReadContent implements ContentVisitor {
     public void visitFunction(FunctionContent functionContent) {
     }
 
-    public Literal<?> readContent() {
-        if (_literalContent == null)
-            return null;
-        return _literalContent;
-    }
+    public Literal<?> readContent() { return _literalContent; }
 }

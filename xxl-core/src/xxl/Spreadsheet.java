@@ -2,12 +2,7 @@ package xxl;
 
 // FIXME import classes
 
-import java.io.Serial;
-import java.io.Serializable;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
@@ -15,6 +10,8 @@ import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.SpreadsheetData;
 import xxl.visitor.RenderedContentVisitor;
+import xxl.visitor.TransferContent;
+import xxl.visitor.TransferVisitor;
 
 /**
  * Class representing a spreadsheet.
@@ -51,7 +48,7 @@ public class Spreadsheet implements Serializable {
         ContentBuilder contentBuilder = new ContentBuilder();
         Content content = contentBuilder.build(contentSpecification);
 
-        _sheetData.insert(range, content);
+        _sheetData.insertContents(range, content);
         changed(true);
     }
 
@@ -66,6 +63,29 @@ public class Spreadsheet implements Serializable {
 
         _sheetData.deleteContents(range);
         changed(true);
+    }
+
+    public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
+        Range range = new Range(rangeSpecification);
+        TransferVisitor transfer = new TransferContent();
+
+        _sheetData.transferToContents(range, transfer);
+        _cutBuffer.transferFromContents(transfer);
+        changed(true);
+    }
+
+    public void cutContents(String rangeSpecification) throws UnrecognizedEntryException {
+        copyContents(rangeSpecification);
+        deleteContents(rangeSpecification);
+        changed(true);
+    }
+
+    public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
+        
+    }
+
+    public void requestCutBufferContent(RenderedContentVisitor renderer) throws UnrecognizedEntryException {
+        _cutBuffer.requestContents(renderer);
     }
 
     public void importFile(String filename)
