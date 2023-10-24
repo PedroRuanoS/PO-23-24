@@ -36,15 +36,27 @@ public class SpreadsheetData extends Storage {
             else
                 transfer.addEmpty();
         }
+        transfer.setRange(range);
     }
 
     public void transferFromContents(Range range, TransferVisitor transfer) {
         if (!transfer.isEmpty()) {
-            if (range.isSingle()) {
-                int startAddress = computeCellIndex(range.getRange().get(0));
-                // int maxaddress;
-            } else {
+            if (range.isSingle() || range.sameDimension(transfer.getRange())) {
 
+                int startAddress = computeCellIndex(range.getRange().get(0));
+                for (Content content: transfer.getTransferedContent()) {
+                    if (content != null) {
+                        Cell newCell = new Cell(content);
+                        getCells().put(startAddress, newCell);
+                    }
+
+                    if (transfer.getRange().isHorizontal())
+                        startAddress++;
+                    else
+                        startAddress += getColumnCount();
+                }
+            } else {
+                // ERROR?
             }
         }
     }
