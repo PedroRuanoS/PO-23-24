@@ -32,13 +32,13 @@ public class Range implements Serializable {
 
     public List<int[]> getRange() {
         List<int[]> range = new LinkedList<>();
-
-        if (_rowAddresses[0] == _rowAddresses[1]) {
+        
+        if (isHorizontal()) {
             for (int i = _columnAddresses[0]; i <= _columnAddresses[1]; i++) {
                 int[] address = {_rowAddresses[0], i};
                 range.add(address);
             }
-        } else if (_columnAddresses[0] == _columnAddresses[1]) {
+        } else if (!isHorizontal()) {
             for (int i = _rowAddresses[0]; i <= _rowAddresses[1]; i++) {
                 int[] address = {i, _columnAddresses[0]};
                 range.add(address);

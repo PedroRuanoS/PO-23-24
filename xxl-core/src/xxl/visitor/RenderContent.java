@@ -9,7 +9,7 @@ import xxl.storage.Storage;
 
 public class RenderContent implements RenderedContentVisitor {
     private String _rendered = "";
-    private ReadContent _readContent = new ReadContent();
+    private ReadContent _readContent;
 
     public String getAddress(int[] address) {return address[0] + ";" + address[1];}
 
@@ -21,18 +21,21 @@ public class RenderContent implements RenderedContentVisitor {
 
     @Override
     public void visitInteger(IntegerLiteral integerContent) {
+        _readContent = new ReadContent();
         _readContent.visitInteger(integerContent);
         _rendered += contentValue() + "\n";
     }
 
     @Override
     public void visitString(StringLiteral stringContent) {
+        _readContent = new ReadContent();
         _readContent.visitString(stringContent);
         _rendered += contentValue() + "\n";
     }
 
     @Override
     public void visitReference(ReferencedContent referenceContent, Storage data) {
+        _readContent = new ReadContent();
         _readContent.visitReference(referenceContent, data);
         _rendered += contentValue() +
                 "=" + getAddress(referenceContent.getCellAddress().getRange().get(0)) + "\n";
@@ -40,6 +43,7 @@ public class RenderContent implements RenderedContentVisitor {
 
     @Override
     public void visitFunction(FunctionContent functionContent, Storage data) {
+        _readContent = new ReadContent();
         _readContent.visitFunction(functionContent, data);
     }
 
