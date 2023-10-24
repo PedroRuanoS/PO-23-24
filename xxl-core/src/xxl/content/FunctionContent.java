@@ -71,7 +71,8 @@ public class FunctionContent extends Content implements Serializable {
             default -> false;
         };
     }
+
     @Override
-    public void requestContent(ContentVisitor visitor, SpreadsheetData data) { visitor.visitFunction(this, data); }
+    public void requestContent(ContentVisitor visitor, Storage data) { visitor.visitFunction(this, data); }
 
 }

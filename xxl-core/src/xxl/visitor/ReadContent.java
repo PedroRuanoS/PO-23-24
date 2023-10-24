@@ -23,7 +23,7 @@ public class ReadContent implements ContentVisitor {
     }
 
     @Override
-    public void visitFunction(FunctionContent functionContent, SpreadsheetData data) {
+    public void visitFunction(FunctionContent functionContent, Storage data) {
     }
 
     public Literal<?> readContent() { return _literalContent; }
