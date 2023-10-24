@@ -22,4 +22,6 @@ public class TransferContent implements TransferVisitor {
     public List<Content> getTransferedContent() {
         return _transferedContent;
     }
+
+    public boolean isEmpty() { return _transferedContent.isEmpty(); }
 }

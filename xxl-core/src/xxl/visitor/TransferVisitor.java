@@ -11,4 +11,6 @@ public interface TransferVisitor {
     public void addEmpty();
 
     public List<Content> getTransferedContent();
+
+    public boolean isEmpty();
 }

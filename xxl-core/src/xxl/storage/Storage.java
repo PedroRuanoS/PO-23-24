@@ -49,37 +49,6 @@ public abstract class Storage implements Serializable {
         }
     }
 
-    public void transferToContents(Range range, TransferVisitor transfer) {
-        for (int[] address: range.getRange()) {
-            int computedIndex = computeCellIndex(address);
-            Cell currentCell = getCells().get(computedIndex);
-            boolean empty = (currentCell == null);
-
-            if (!empty)
-                transfer.visitCell(currentCell);
-            else
-                transfer.addEmpty();
-        }
-    }
-
-    public void transferFromContents(TransferVisitor transfer) {
-        int address = 0;
-        for (Content content: transfer.getTransferedContent()) {
-            Cell newCell = new Cell(content);
-            getCells().put(address, newCell);
-            address++;
-        }
-//        for (int[] address: range.getRange()) {
-//            int computedIndex = computeCellIndex(address);
-//            Content transferedContent = transfer.getTransferedContent().get(computedIndex);
-//
-//            if (transferedContent != null) {
-//                Cell newCell = new Cell(transferedContent);
-//                getCells().put(computedIndex, newCell);
-//            }
-//        }
-    }
-
     public int getRowCount() { return _rowCount; }
 
     public int getColumnCount() { return _columnCount; }

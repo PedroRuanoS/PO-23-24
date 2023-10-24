@@ -24,4 +24,28 @@ public class SpreadsheetData extends Storage {
                 currentCell.requestContent(renderer, this);
         }
     }
+
+    public void transferToContents(Range range, TransferVisitor transfer) {
+        for (int[] address: range.getRange()) {
+            int computedIndex = computeCellIndex(address);
+            Cell currentCell = getCells().get(computedIndex);
+            boolean empty = (currentCell == null);
+
+            if (!empty)
+                transfer.visitCell(currentCell);
+            else
+                transfer.addEmpty();
+        }
+    }
+
+    public void transferFromContents(Range range, TransferVisitor transfer) {
+        if (!transfer.isEmpty()) {
+            if (range.isSingle()) {
+                int startAddress = computeCellIndex(range.getRange().get(0));
+                // int maxaddress;
+            } else {
+
+            }
+        }
+    }
 }

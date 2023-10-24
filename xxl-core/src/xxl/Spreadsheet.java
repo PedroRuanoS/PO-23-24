@@ -81,7 +81,12 @@ public class Spreadsheet implements Serializable {
     }
 
     public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
-        
+        Range range = new Range(rangeSpecification);
+        TransferVisitor transfer = new TransferContent();
+
+        _cutBuffer.transferToContents(transfer);
+        _sheetData.transferFromContents(range, transfer);
+        changed(true);
     }
 
     public void requestCutBufferContent(RenderedContentVisitor renderer) throws UnrecognizedEntryException {

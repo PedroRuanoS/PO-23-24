@@ -1,7 +1,6 @@
 package xxl.content;
 
 import xxl.Range;
-import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 

@@ -29,12 +29,23 @@ public class Range implements Serializable {
 
     public List<int[]> getRange() {
         List<int[]> range = new LinkedList<>();
-        for (int i = _rowAddresses[0]; i <= _rowAddresses[1]; i++) {
-            for (int j = _columnAddresses[0]; j <= _columnAddresses[1]; j++) {
-                int[] address = {i, j};
+
+        if (_rowAddresses[0] == _rowAddresses[1]) {
+            for (int i = _columnAddresses[0]; i <= _columnAddresses[1]; i++) {
+                int[] address = {_rowAddresses[0], i};
+                range.add(address);
+            }
+        } else if (_columnAddresses[0] == _columnAddresses[1]) {
+            for (int i = _rowAddresses[0]; i <= _rowAddresses[1]; i++) {
+                int[] address = {_columnAddresses[0], i};
                 range.add(address);
             }
         }
+
         return range;
+    }
+
+    public boolean isSingle() {
+        return (_rowAddresses[0] == _rowAddresses[1] && _columnAddresses[0] == _columnAddresses[1]);
     }
 }
