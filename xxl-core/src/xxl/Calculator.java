@@ -107,7 +107,7 @@ public class Calculator {
 
 
     /**
-     * Read text input file and create domain entities..
+     * Read text input file and create domain entities.
      *
      * @param filename name of the text input file
      * @throws ImportFileException

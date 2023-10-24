@@ -52,8 +52,8 @@ public class Spreadsheet implements Serializable {
         changed(true);
     }
 
-    public void requestContents(String rangeSpecfication, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecfication);
+    public void requestContents(String rangeSpecification, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
+        Range range = new Range(rangeSpecification);
 
         _sheetData.requestContents(range, renderer);
     }

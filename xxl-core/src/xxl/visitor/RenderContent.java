@@ -39,8 +39,8 @@ public class RenderContent implements RenderedContentVisitor {
     }
 
     @Override
-    public void visitFunction(FunctionContent functionContent) {
-
+    public void visitFunction(FunctionContent functionContent, SpreadsheetData data) {
+        _readContent.visitFunction(functionContent, data);
     }
 
     @Override

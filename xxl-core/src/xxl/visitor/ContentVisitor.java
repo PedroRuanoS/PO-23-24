@@ -14,5 +14,5 @@ public interface ContentVisitor {
 
     void visitReference(ReferencedContent referenceContent, Storage data);
 
-    void visitFunction(FunctionContent functionContent);
+    void visitFunction(FunctionContent functionContent, SpreadsheetData data);
 }

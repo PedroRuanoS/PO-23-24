@@ -14,6 +14,8 @@ public class ContentBuilder {
             return new IntegerLiteral(contentSpecification);
         if (contentSpecification.matches(REFERENCE_REGEX))
             return new ReferencedContent(contentSpecification);
+        if (contentSpecification.matches(FUNCTION_REGEX))
+            return new FunctionContent(contentSpecification);
 
         return null;
     }

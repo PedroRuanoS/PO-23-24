@@ -1,14 +1,16 @@
 package xxl.functions;
 
 import xxl.content.Content;
+import xxl.content.IntegerLiteral;
+import xxl.content.Literal;
 
 import java.io.Serializable;
 
 // FIXME para todas as funcoes o metodo intValue() ja nao existe!
 
-public class AddFunction implements FunctionStrategy , Serializable {
+public class AddFunction implements BinaryFunctionStrategy , Serializable {
     @Override
-    public int executeOperation(Content op1, Content op2) {
-        return 0;
+    public Literal<?> executeOperation(Content op1, Content op2) {
+        return new IntegerLiteral("");
     }
 }
