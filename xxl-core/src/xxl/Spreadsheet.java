@@ -21,7 +21,8 @@ public class Spreadsheet implements Serializable {
     @Serial
     private static final long serialVersionUID = 202308312359L;
 
-
+    private int _rowCount;
+    private int _columnCount;
     private SpreadsheetData _sheetData;
     private CutBuffer _cutBuffer;
     private boolean _changed = true;
@@ -30,6 +31,8 @@ public class Spreadsheet implements Serializable {
     public Spreadsheet() {}
 
     public Spreadsheet(int rows, int columns) {
+        _rowCount = rows;
+        _columnCount = columns;
         _sheetData = new SpreadsheetData(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
     }
@@ -48,6 +51,7 @@ public class Spreadsheet implements Serializable {
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
         ContentBuilder contentBuilder = new ContentBuilder();
         Content content = contentBuilder.build(contentSpecification);
@@ -58,12 +62,14 @@ public class Spreadsheet implements Serializable {
 
     public void requestContents(String rangeSpecification, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
         _sheetData.renderContents(range, renderer);
     }
 
     public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
         _sheetData.deleteContents(range);
         changed(true);
@@ -71,6 +77,7 @@ public class Spreadsheet implements Serializable {
 
     public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
         TransferVisitor transfer = new TransferCells();
 
         _sheetData.transferCellsTo(range, transfer);
@@ -86,6 +93,7 @@ public class Spreadsheet implements Serializable {
 
     public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
         TransferVisitor transfer = new TransferCells();
 
         _cutBuffer.transferCellsTo(transfer);
@@ -122,7 +130,15 @@ public class Spreadsheet implements Serializable {
         int rows = Integer.parseInt(line_rows[1]);
         int columns = Integer.parseInt(line_columns[1]);
 
+        _rowCount = rows;
+        _columnCount = columns;
         _sheetData = new SpreadsheetData(rows, columns);
         _cutBuffer = new CutBuffer(rows, columns);
+    }
+
+    public boolean isRangeOk(Range range) {
+        return ((range.isVertical() || range.isHorizontal())) &&
+                (range.getFirstRow() > 0 && range.getFirstColumn() > 0) &&
+                (range.getLastRow() <= _rowCount && range.getLastColumn() <= _columnCount);
     }
 }

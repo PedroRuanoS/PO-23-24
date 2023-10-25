@@ -49,11 +49,15 @@ public class Range implements Serializable {
     }
 
     public boolean isSingle() {
-        return (_rowAddresses[0] == _rowAddresses[1] && _columnAddresses[0] == _columnAddresses[1]);
+        return (isHorizontal() && isVertical());
     }
 
     public boolean isHorizontal() {
         return (_rowAddresses[0] == _rowAddresses[1]);
+    }
+
+    public boolean isVertical() {
+        return (_columnAddresses[0] == _columnAddresses[1]);
     }
 
     public boolean sameDimension(Range other) {
@@ -61,7 +65,13 @@ public class Range implements Serializable {
             return (other.isHorizontal() &&
                     (_columnAddresses[1] - _columnAddresses[0] == other.getColumnAddresses()[1] - other.getColumnAddresses()[0]));
         }
-        return (!other.isHorizontal() &&
+        return (other.isVertical() &&
                 (_rowAddresses[1] - _rowAddresses[0] == other.getRowAddresses()[1] - other.getRowAddresses()[0]));
     }
+
+    public int getFirstRow() {return _rowAddresses[0];}
+    public int getFirstColumn() {return _columnAddresses[0];}
+    public int getLastRow() {return _rowAddresses[1];}
+    public int getLastColumn() {return _columnAddresses[1];}
+
 }
