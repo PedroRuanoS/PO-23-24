@@ -17,36 +17,33 @@ public class CutBuffer extends Storage {
     public void setRange(Range range) { _copiedRange = range; }
 
     @Override
-    public void requestContents(RenderedContentVisitor renderer) {
-        for (int addresses: getCells().keySet()) {
-            Cell currentCell = getCells().get(addresses);
-            boolean empty = (currentCell.getContent() == null);
-
-            renderer.renderAddress(revertCellIndex(addresses), empty);
-
-            if (!empty)
-                currentCell.requestContent(renderer, this);
+    public void renderContents(RenderedContentVisitor renderer) {
+        for (int address: getCells().keySet()) {
+            Cell currentCell = getCells().get(address);
+            render(currentCell, revertCellIndex(address), renderer);
         }
     }
 
-    public void transferToContents(TransferVisitor transfer) {
+    public void transferCellsTo(TransferVisitor transfer) {
         for (Cell currentCell: getCells().values()) {
-            transfer.visitCell(currentCell);
+            transfer.addCell(currentCell);
         }
         transfer.setRange(_copiedRange);
     }
 
-    public void transferFromContents(TransferVisitor transfer) {
+    public void transferCellsFrom(TransferVisitor transfer) {
         _copiedRange = transfer.getRange();
         int address = 0;
 
-        for (Content content: transfer.getTransferedContent()) {
-            Cell newCell = new Cell(content);
-            getCells().put(address, newCell);
-            if (_copiedRange.isHorizontal())
-                address++;
-            else
-                address += getColumnCount();
+        for (Cell cell: transfer.getTransferedCells()) {
+            if (cell == null)
+                putContent(null, address);  // Putting null in content is the same as deleting the content
+            else {
+                Content currentContent = cell.getContent();
+                currentContent.setState(true);         // Make content static since it's going to be in cutbuffer
+                putContent(currentContent, address);
+            }
+            address = nextAddress(_copiedRange, address);
         }
     }
 }

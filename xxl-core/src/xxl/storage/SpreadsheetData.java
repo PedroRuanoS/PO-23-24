@@ -3,61 +3,50 @@ package xxl.storage;
 import xxl.Cell;
 import xxl.Range;
 import xxl.content.Content;
-import xxl.visitor.ContentVisitor;
+import xxl.visitor.ReadContent;
 import xxl.visitor.RenderedContentVisitor;
 import xxl.visitor.TransferVisitor;
 
 public class SpreadsheetData extends Storage {
-    // FIXME still need to find a better way to reuse code
     public SpreadsheetData(int rowCount, int columnCount) {
         super(rowCount, columnCount);
     }
 
-    public void requestContents(Range range, RenderedContentVisitor renderer) {
+    public void renderContents(Range range, RenderedContentVisitor renderer) {
         for (int[] address: range.getRange()) {
             Cell currentCell = getCells().get(computeCellIndex(address));
-            boolean empty = (currentCell == null);
-
-            renderer.renderAddress(address, empty);
-
-            if (!empty)
-                currentCell.requestContent(renderer, this);
+            render(currentCell, address, renderer);
         }
     }
 
-    public void transferToContents(Range range, TransferVisitor transfer) {
+    public void transferCellsTo(Range range, TransferVisitor transfer) {
         for (int[] address: range.getRange()) {
-            int computedIndex = computeCellIndex(address);
-            Cell currentCell = getCells().get(computedIndex);
-            boolean empty = (currentCell == null);
+            Cell currentCell = getCells().get(computeCellIndex(address));
 
-            if (!empty)
-                transfer.visitCell(currentCell);
-            else
-                transfer.addEmpty();
+            if (currentCell != null) { // In case of reference, calculate cached value before sending it
+                ReadContent updateValue = new ReadContent();
+                currentCell.requestContent(updateValue, this);
+            }
+
+            transfer.addCell(currentCell);
         }
         transfer.setRange(range);
     }
 
-    public void transferFromContents(Range range, TransferVisitor transfer) {
+    public void transferCellsFrom(Range range, TransferVisitor transfer) {
         if (!transfer.isEmpty()) {
             if (range.isSingle() || range.sameDimension(transfer.getRange())) {
-
                 int startAddress = computeCellIndex(range.getRange().get(0));
-                for (Content content: transfer.getTransferedContent()) {
-                    if (content != null) {
-                        Cell newCell = new Cell(content);
-                        getCells().put(startAddress, newCell);
-                    }
+                for (Cell cell : transfer.getTransferedCells()) {
+                    Content currentContent = cell.getContent();
+                    if (currentContent != null)
+                        currentContent.setState(false);     // Remove static property since it's no longer in cut buffer
 
-                    if (transfer.getRange().isHorizontal())
-                        startAddress++;
-                    else
-                        startAddress += getColumnCount();
+                    putContent(currentContent, startAddress);
+                    startAddress = nextAddress(transfer.getRange(), startAddress);
                 }
-            } else {
-                // ERROR?
             }
         }
     }
+
 }

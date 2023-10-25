@@ -5,7 +5,6 @@ import xxl.content.Content;
 import xxl.Range;
 import xxl.visitor.ContentVisitor;
 import xxl.visitor.RenderedContentVisitor;
-import xxl.visitor.TransferVisitor;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -24,46 +23,68 @@ public abstract class Storage implements Serializable {
 
     public void insertContents(Range range, Content content) {
         for (int[] address : range.getRange()) {
-            Cell newCell = new Cell(content);
-            getCells().put(computeCellIndex(address), newCell);
+            putContent(content, computeCellIndex(address));
         }
     }
 
-    public void requestContents(Range range, RenderedContentVisitor renderer) {}
+    public void putContent(Content content, int address) {
+        Cell currentCell = _cells.get(address);
 
-    public void requestContents(RenderedContentVisitor renderer) {}
-
-    public void readContents(Range range, ContentVisitor reader) {
-        for (int[] address: range.getRange()) {
-            Cell currentCell = getCells().get(computeCellIndex(address));
-            boolean empty = (currentCell == null);
-
-            if (!empty)
-                currentCell.requestContent(reader, this);
+        if (currentCell == null) {
+            currentCell = new Cell(content);
+            _cells.put(address, currentCell);
+        } else {
+            currentCell.setContent(content);
         }
+    }
+
+    public void readContent(Range range, ContentVisitor reader) {
+        // The range passed to readContent is always a single Cell
+        int address = computeCellIndex(range.getRange().get(0));
+
+        Cell currentCell = _cells.get(address);
+        boolean empty = (currentCell == null);
+
+        if (!empty)
+            currentCell.requestContent(reader, this);
     }
 
     public void deleteContents(Range range) {
         for (int[] address: range.getRange()) {
-            getCells().remove(computeCellIndex(address));
+            _cells.remove(computeCellIndex(address));
         }
     }
 
-    public int getRowCount() { return _rowCount; }
+    public void render(Cell currentCell, int[] address, RenderedContentVisitor renderer) {
+        boolean empty = (currentCell == null || currentCell.getContent() == null);
 
-    public int getColumnCount() { return _columnCount; }
+        renderer.renderAddress(address, empty);
+
+        if (!empty)
+            currentCell.requestContent(renderer, this);
+    }
+
+    public void renderContents(Range range, RenderedContentVisitor renderer) {}
+
+    public void renderContents(RenderedContentVisitor renderer) {}
 
     public Map<Integer, Cell> getCells() { return _cells; }
 
     public int computeCellIndex(int[] address) {
-        return (address[0] - 1) * getColumnCount() + (address[1] - 1);  // address -> [row, column]
+        return (address[0] - 1) * _columnCount + (address[1] - 1);  // address -> [row, column]
     }
 
     public int[] revertCellIndex(int address) {
         return new int[]{
-                (int) address / getColumnCount() + 1,
-                address % getColumnCount() + 1
+                (int) address / _columnCount + 1,
+                address % _columnCount + 1
 
         };
+    }
+
+    public int nextAddress(Range range, int address) {
+        if (range.isHorizontal())
+            return address + 1;
+        return address + _columnCount;
     }
 }

@@ -1,9 +1,6 @@
 package xxl.visitor;
 
-import xxl.content.FunctionContent;
-import xxl.content.IntegerLiteral;
-import xxl.content.ReferencedContent;
-import xxl.content.StringLiteral;
+import xxl.content.*;
 import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 

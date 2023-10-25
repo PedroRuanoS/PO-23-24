@@ -1,6 +1,8 @@
 package xxl.content;
 
+import xxl.Cell;
 import xxl.Spreadsheet;
+import xxl.storage.CutBuffer;
 import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;

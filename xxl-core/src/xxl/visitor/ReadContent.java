@@ -1,7 +1,7 @@
 package xxl.visitor;
 
+import xxl.Cell;
 import xxl.content.*;
-import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 
 public class ReadContent implements ContentVisitor {
@@ -10,6 +10,7 @@ public class ReadContent implements ContentVisitor {
     @Override
     public void visitInteger(IntegerLiteral integerContent) {
         _literalContent = integerContent;
+
     }
 
     @Override
@@ -19,7 +20,12 @@ public class ReadContent implements ContentVisitor {
 
     @Override
     public void visitReference(ReferencedContent referenceContent, Storage data) {
-        data.readContents(referenceContent.getCellAddress(), this);
+        if (referenceContent.isStatic())
+            _literalContent = referenceContent.getValue();
+        else {
+            data.readContent(referenceContent.getCellAddress(), this);
+            referenceContent.setValue(_literalContent);
+        }
     }
 
     @Override

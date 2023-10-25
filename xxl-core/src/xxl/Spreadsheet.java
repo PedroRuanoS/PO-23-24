@@ -3,7 +3,6 @@ package xxl;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
@@ -11,7 +10,7 @@ import xxl.exceptions.UnrecognizedEntryException;
 import xxl.storage.CutBuffer;
 import xxl.storage.SpreadsheetData;
 import xxl.visitor.RenderedContentVisitor;
-import xxl.visitor.TransferContent;
+import xxl.visitor.TransferCells;
 import xxl.visitor.TransferVisitor;
 
 /**
@@ -60,7 +59,7 @@ public class Spreadsheet implements Serializable {
     public void requestContents(String rangeSpecification, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
 
-        _sheetData.requestContents(range, renderer);
+        _sheetData.renderContents(range, renderer);
     }
 
     public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
@@ -72,10 +71,10 @@ public class Spreadsheet implements Serializable {
 
     public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
-        TransferVisitor transfer = new TransferContent();
+        TransferVisitor transfer = new TransferCells();
 
-        _sheetData.transferToContents(range, transfer);
-        _cutBuffer.transferFromContents(transfer);
+        _sheetData.transferCellsTo(range, transfer);
+        _cutBuffer.transferCellsFrom(transfer);
         changed(true);
     }
 
@@ -87,15 +86,15 @@ public class Spreadsheet implements Serializable {
 
     public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
         Range range = new Range(rangeSpecification);
-        TransferVisitor transfer = new TransferContent();
+        TransferVisitor transfer = new TransferCells();
 
-        _cutBuffer.transferToContents(transfer);
-        _sheetData.transferFromContents(range, transfer);
+        _cutBuffer.transferCellsTo(transfer);
+        _sheetData.transferCellsFrom(range, transfer);
         changed(true);
     }
 
     public void requestCutBufferContent(RenderedContentVisitor renderer) throws UnrecognizedEntryException {
-        _cutBuffer.requestContents(renderer);
+        _cutBuffer.renderContents(renderer);
     }
 
     public void importFile(String filename)
