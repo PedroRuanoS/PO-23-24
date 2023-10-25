@@ -1,8 +1,9 @@
 package xxl;
 
-// FIXME import classes
-
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeMap;
 
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
@@ -25,6 +26,7 @@ public class Spreadsheet implements Serializable {
     private SpreadsheetData _sheetData;
     private CutBuffer _cutBuffer;
     private boolean _changed = true;
+    private List<User> _users = new ArrayList<>();
 
     public Spreadsheet() {}
 
@@ -36,6 +38,9 @@ public class Spreadsheet implements Serializable {
     public boolean hasChanged() { return _changed; }
 
     public void changed(boolean value) { _changed = value; }
+
+    public void addUser(User newUser) { _users.add(newUser); }
+
     /**
      * Insert specified content in specified range.
      *

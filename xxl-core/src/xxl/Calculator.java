@@ -8,6 +8,8 @@ import java.io.FileOutputStream;
 import java.io.BufferedInputStream;
 import java.io.ObjectInputStream;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import xxl.exceptions.*;
 
@@ -23,19 +25,23 @@ public class Calculator {
 
     /** The current name of the file. */
     private String _filename = "";
+    private User _activeUser = new User("root");
+    private List<User> _allUsers = new ArrayList<>();
+    // FIX ME when creating the list, has to add user named "root" to it
 
     /**
      * @param rows the rows the spreadsheet will have
-     * @param columns the columns the spreadseet will have
+     * @param columns the columns the spreadsheet will have
      */
     public void createSpreadsheet(int rows, int columns) {
         _spreadsheet = new Spreadsheet(rows, columns);
+        _activeUser.addSpreadsheet(_spreadsheet);
     }
 
     public void createUser() {}
 
     /**
-     * @return network
+     * @return spreadsheet
      */
     public Spreadsheet getSpreadsheet() { return _spreadsheet; }
     
@@ -48,6 +54,10 @@ public class Calculator {
      * @param filename the name of the file
      */
     public void setFilename(String filename) { _filename = filename; }
+
+    public User getActiveUser() { return _activeUser; }
+
+    public void setActiveUser(User user) { _activeUser = user; }
     
     /**
      * Saves the serialized application's state into the file associated to the current network.
