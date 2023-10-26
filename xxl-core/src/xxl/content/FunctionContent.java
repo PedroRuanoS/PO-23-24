@@ -61,19 +61,19 @@ public class FunctionContent extends Content implements Serializable {
             }
             case ("AVERAGE") -> {
                 _strategy = new AverageFunction();
-                yield false;
+                yield true;
             }
             case ("PRODUCT") -> {
                 _strategy = new ProductFunction();
-                yield false;
+                yield true;
             }
             case ("CONCAT") -> {
                 _strategy = new ConcatFunction();
-                yield false;
+                yield true;
             }
             case ("COALESCE") -> {
                 _strategy = new CoalesceFunction();
-                yield false;
+                yield true;
             }
             default -> false;
         };
@@ -88,7 +88,9 @@ public class FunctionContent extends Content implements Serializable {
     }
 
     @Override
-    public void requestContent(ContentVisitor visitor, Storage data) { visitor.visitFunction(this, data); }
+    public void requestContent(ContentVisitor visitor, Storage data) {
+        visitor.visitFunction(this, data);
+    }
 
     public String getFunctionName() { return _functionName; }
 
