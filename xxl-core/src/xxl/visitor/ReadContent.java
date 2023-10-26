@@ -44,7 +44,7 @@ public class ReadContent implements ContentVisitor {
                         firstReader.readContent(), secondReader.readContent());
                 functionContent.setResult(_literalContent);
             } else {
-
+                // Range functions
             }
         }
     }

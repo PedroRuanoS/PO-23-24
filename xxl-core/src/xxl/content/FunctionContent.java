@@ -28,13 +28,11 @@ public class FunctionContent extends Content implements Serializable {
             if (fields.length > 1) {
                 if (fields[0].split(";").length == 2)
                     fields[0] = "=" + fields[0];
-                _firstArgument = contentBuilder.build(fields[0].trim());
+                _firstArgument = contentBuilder.build(fields[0]);
 
                 if (fields[1].split(";").length == 2)
                     fields[1] = "=" + fields[1];
-                _secondArgument = contentBuilder.build(fields[1].trim());
-
-
+                _secondArgument = contentBuilder.build(fields[1]);
             } else {
                 _rangeArgument = new Range(fields[0]);
             }
@@ -82,8 +80,9 @@ public class FunctionContent extends Content implements Serializable {
     public Literal<?> executeBinaryFunction(Literal<?> firstOperand, Literal<?> secondOperand) {
         return _strategy.executeOperation(firstOperand, secondOperand);
     }
-    public void executeRangeFunction(Range rangeOperand) {
-        _strategy.executeOperation(rangeOperand);
+
+    public Literal<?> executeRangeFunction(Range rangeOperand) {
+        return _strategy.executeOperation(rangeOperand);
     }
 
     @Override
