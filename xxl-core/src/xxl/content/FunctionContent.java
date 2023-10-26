@@ -11,68 +11,99 @@ import java.io.Serializable;
 
 public class FunctionContent extends Content implements Serializable {
     private String _functionName;
+    private String _functionArguments;
     private Literal<?> _result;
-    private BinaryFunctionStrategy _binaryStrategy;
-    private RangeFunctionStrategy _rangeStrategy;
+    private FunctionStrategy _strategy;
+    private Content _firstArgument;
+    private Content _secondArgument;
+    private Range _rangeArgument;
 
     public FunctionContent(String content) {
         _functionName = content.substring(1, content.indexOf("("));
+        _functionArguments = content.substring(content.indexOf("(") + 1, content.indexOf(")"));
         ContentBuilder contentBuilder = new ContentBuilder();
+
         if (setStrategy(_functionName)) {
-            String arg1 = content.substring(content.indexOf("(") + 1, content.indexOf(","));
-            String arg2 = content.substring(content.indexOf(",") + 1, content.indexOf(")"));
-            Content operand1 = contentBuilder.build(arg1);
-            Content operand2 = contentBuilder.build(arg2);
-            if (arg1.charAt(1) == ';')
-               operand1 = contentBuilder.build("=" + arg1);
-            if (arg2.charAt(1) == ';')
-                operand2 = contentBuilder.build("=" + arg2);
-            _result = _binaryStrategy.executeOperation(operand1, operand2);
-        } else {
-            Range operands = new Range(content.substring(content.indexOf("(") + 1, content.indexOf(")")));
-            _result = _rangeStrategy.executeOperation(operands);
+            String fields[] = _functionArguments.split(",");
+            if (fields.length > 1) {
+                if (fields[0].split(";").length == 2)
+                    fields[0] = "=" + fields[0];
+                _firstArgument = contentBuilder.build(fields[0].trim());
+
+                if (fields[1].split(";").length == 2)
+                    fields[1] = "=" + fields[1];
+                _secondArgument = contentBuilder.build(fields[1].trim());
+
+
+            } else {
+                _rangeArgument = new Range(fields[0]);
+            }
         }
     }
 
     public boolean setStrategy(String functionName) {
         return switch (functionName) {
             case ("ADD") -> {
-                _binaryStrategy = new AddFunction();
+                _strategy = new AddFunction();
                 yield true;
             }
             case ("SUB") -> {
-                _binaryStrategy = new SubFunction();
+                _strategy = new SubFunction();
                 yield true;
             }
             case ("MUL") -> {
-                _binaryStrategy = new MulFunction();
+                _strategy = new MulFunction();
                 yield true;
             }
             case ("DIV") -> {
-                _binaryStrategy = new DivFunction();
+                _strategy = new DivFunction();
                 yield true;
             }
             case ("AVERAGE") -> {
-                _rangeStrategy = new AverageFunction();
+                _strategy = new AverageFunction();
                 yield false;
             }
             case ("PRODUCT") -> {
-                _rangeStrategy = new ProductFunction();
+                _strategy = new ProductFunction();
                 yield false;
             }
             case ("CONCAT") -> {
-                _rangeStrategy = new ConcatFunction();
+                _strategy = new ConcatFunction();
                 yield false;
             }
             case ("COALESCE") -> {
-                _rangeStrategy = new CoalesceFunction();
+                _strategy = new CoalesceFunction();
                 yield false;
             }
             default -> false;
         };
     }
 
+    public Literal<?> executeBinaryFunction(Literal<?> firstOperand, Literal<?> secondOperand) {
+        return _strategy.executeOperation(firstOperand, secondOperand);
+    }
+    public void executeRangeFunction(Range rangeOperand) {
+        _strategy.executeOperation(rangeOperand);
+    }
+
     @Override
     public void requestContent(ContentVisitor visitor, Storage data) { visitor.visitFunction(this, data); }
+
+    public String getFunctionName() { return _functionName; }
+
+    public String renderArguments() {
+        return _functionArguments;
+    }
+
+    public Literal<?> getResult() { return _result; }
+
+    public void setResult(Literal<?> result) { _result = result; }
+
+    public boolean isBinaryFunction() {
+        return (_rangeArgument == null);
+    }
+
+    public Content getFirstArgument() { return _firstArgument; }
+    public Content getSecondArgument() { return _secondArgument; }
 
 }

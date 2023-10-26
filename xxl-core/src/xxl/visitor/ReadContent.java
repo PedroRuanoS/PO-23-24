@@ -30,7 +30,25 @@ public class ReadContent implements ContentVisitor {
 
     @Override
     public void visitFunction(FunctionContent functionContent, Storage data) {
+        if (functionContent.isStatic())
+            _literalContent = functionContent.getResult();
+        else {
+            if (functionContent.isBinaryFunction()) {
+                ReadContent firstReader = new ReadContent();
+                ReadContent secondReader = new ReadContent();
+
+                functionContent.getFirstArgument().requestContent(firstReader, data);
+                functionContent.getSecondArgument().requestContent(secondReader, data);
+
+                _literalContent = functionContent.executeBinaryFunction(
+                        firstReader.readContent(), secondReader.readContent());
+                functionContent.setResult(_literalContent);
+            } else {
+
+            }
+        }
     }
 
     public Literal<?> readContent() { return _literalContent; }
+
 }

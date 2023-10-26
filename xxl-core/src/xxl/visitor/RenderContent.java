@@ -42,6 +42,8 @@ public class RenderContent implements RenderedContentVisitor {
     public void visitFunction(FunctionContent functionContent, Storage data) {
         _readContent = new ReadContent();
         _readContent.visitFunction(functionContent, data);
+        _rendered += contentValue() +
+                "=" + functionContent.getFunctionName() + "(" + functionContent.renderArguments() + ")" + "\n";
     }
 
     @Override

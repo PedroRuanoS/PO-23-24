@@ -4,7 +4,9 @@ import xxl.Range;
 import xxl.content.IntegerLiteral;
 import xxl.content.Literal;
 
-public class ConcatFunction implements RangeFunctionStrategy{
+import java.io.Serializable;
+
+public class ConcatFunction extends RangeFunctionStrategy implements Serializable {
     @Override
     public Literal<?> executeOperation(Range range) { return new IntegerLiteral(""); }
 }

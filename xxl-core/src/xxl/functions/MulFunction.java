@@ -6,9 +6,12 @@ import xxl.content.Literal;
 
 import java.io.Serializable;
 
-public class MulFunction implements BinaryFunctionStrategy , Serializable {
+public class MulFunction extends BinaryFunctionStrategy implements Serializable {
     @Override
-    public Literal<?> executeOperation(Content op1, Content op2) {
-        return new IntegerLiteral("");
+    public Literal<?> executeOperation(Literal<?> firstOperand, Literal<?> secondOperand) {
+        if (!checkArguments(firstOperand, secondOperand)) return null;
+
+        int result = (int) firstOperand.getValue() * (int) secondOperand.getValue();
+        return new IntegerLiteral(String.valueOf(result));
     }
 }
