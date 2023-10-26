@@ -47,7 +47,7 @@ public class ReadContent implements ContentVisitor {
                 if (firstArgument != null)
                     firstArgument.requestContent(firstReader, data);
                 if (secondArgument != null)
-                    functionContent.getSecondArgument().requestContent(secondReader, data);
+                    secondArgument.requestContent(secondReader, data);
 
                 _literalContent = functionContent.executeBinaryFunction(
                         firstReader.readContent(), secondReader.readContent());
