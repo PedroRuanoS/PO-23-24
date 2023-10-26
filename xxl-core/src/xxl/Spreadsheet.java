@@ -105,6 +105,14 @@ public class Spreadsheet implements Serializable {
         _cutBuffer.renderContents(renderer);
     }
 
+    public void searchValue(String searchValue, RenderedContentVisitor renderer) {
+        // FIXME Implement
+    }
+
+    public void searchFunction(String searchFunction, RenderedContentVisitor renderer) {
+        // FIXME Implement
+    }
+
     public void importFile(String filename)
             throws IOException, UnrecognizedEntryException, NumberFormatException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {

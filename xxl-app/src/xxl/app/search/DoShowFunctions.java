@@ -11,7 +11,7 @@ class DoShowFunctions extends Command<Spreadsheet> {
 
     DoShowFunctions(Spreadsheet receiver) {
         super(Label.SEARCH_FUNCTIONS, receiver);
-        // FIXME add fields
+        addStringField("searchFunction", Prompt.searchFunction());
     }
 
     @Override
