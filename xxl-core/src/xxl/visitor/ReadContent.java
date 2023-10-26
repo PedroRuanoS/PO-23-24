@@ -4,6 +4,10 @@ import xxl.Cell;
 import xxl.content.*;
 import xxl.storage.Storage;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class ReadContent implements ContentVisitor {
     private Literal<?> _literalContent;
 
@@ -44,7 +48,15 @@ public class ReadContent implements ContentVisitor {
                         firstReader.readContent(), secondReader.readContent());
                 functionContent.setResult(_literalContent);
             } else {
-                // Range functions
+                List<Literal<?>> listedRangeArgs = new ArrayList<>();
+                ReadContent reader = new ReadContent();
+                for (int[] address: functionContent.getRangeArgument().getRange()) {
+                    Content currentContent = data.getCells().get(data.computeCellIndex(address)).getContent();
+                    currentContent.requestContent(reader, data);
+                    listedRangeArgs.add(reader.readContent());
+                }
+                _literalContent = functionContent.executeRangeFunction(listedRangeArgs);
+                functionContent.setResult(_literalContent);
             }
         }
     }

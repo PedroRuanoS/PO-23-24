@@ -4,12 +4,14 @@ import xxl.Range;
 import xxl.content.Content;
 import xxl.content.Literal;
 
+import java.util.List;
+
 public abstract class BinaryFunctionStrategy implements FunctionStrategy {
     private final String INTEGER_REGEX = "^-?\\d+$";
     public abstract Literal<?> executeOperation(Literal<?> firstOperand, Literal<?> secondOperand);
 
     @Override
-    public Literal<?> executeOperation(Range range) {
+    public Literal<?> executeOperation(List<Literal<?>> operands) {
         return null;
     }
 

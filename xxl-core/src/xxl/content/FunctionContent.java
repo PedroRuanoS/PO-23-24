@@ -8,6 +8,7 @@ import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class FunctionContent extends Content implements Serializable {
     private String _functionName;
@@ -17,6 +18,7 @@ public class FunctionContent extends Content implements Serializable {
     private Content _firstArgument;
     private Content _secondArgument;
     private Range _rangeArgument;
+
 
     public FunctionContent(String content) {
         _functionName = content.substring(1, content.indexOf("("));
@@ -81,8 +83,8 @@ public class FunctionContent extends Content implements Serializable {
         return _strategy.executeOperation(firstOperand, secondOperand);
     }
 
-    public Literal<?> executeRangeFunction(Range rangeOperand) {
-        return _strategy.executeOperation(rangeOperand);
+    public Literal<?> executeRangeFunction(List<Literal<?>> operands) {
+        return _strategy.executeOperation(operands);
     }
 
     @Override
@@ -104,5 +106,6 @@ public class FunctionContent extends Content implements Serializable {
 
     public Content getFirstArgument() { return _firstArgument; }
     public Content getSecondArgument() { return _secondArgument; }
+    public Range getRangeArgument() { return _rangeArgument; }
 
 }
