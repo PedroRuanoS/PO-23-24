@@ -9,10 +9,15 @@ import java.util.List;
 public class CoalesceFunction extends RangeFunctionStrategy implements Serializable {
     @Override
     public Literal<?> executeOperation(List<Literal<?>> operands) {
+        StringBuilder result = new StringBuilder();
+        result.append("'");
+
         for (Literal<?> operand: operands) {
-            if (invalidStringArgument(operand))
-                return new StringLiteral(operand.getValue().toString());
+            if (!invalidStringArgument(operand)) {
+                result.append(operand.getValue());
+                break;
+            }
         }
-        return new StringLiteral("");
+        return new StringLiteral(result.toString());
     }
 }
