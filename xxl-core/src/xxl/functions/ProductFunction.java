@@ -11,7 +11,7 @@ public class ProductFunction extends RangeFunctionStrategy implements Serializab
     public Literal<?> executeOperation(List<Literal<?>> operands) {
         int result = 1;
         for (Literal<?> operand: operands) {
-            if (!invalidIntegerArgument(operand)) return null;
+            if (invalidIntegerArgument(operand)) return null;
             result *= (int) operand.getValue();
         }
         if (!operands.isEmpty())
