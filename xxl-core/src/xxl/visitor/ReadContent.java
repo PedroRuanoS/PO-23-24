@@ -41,8 +41,13 @@ public class ReadContent implements ContentVisitor {
                 ReadContent firstReader = new ReadContent();
                 ReadContent secondReader = new ReadContent();
 
-                functionContent.getFirstArgument().requestContent(firstReader, data);
-                functionContent.getSecondArgument().requestContent(secondReader, data);
+                Content firstArgument = functionContent.getFirstArgument();
+                Content secondArgument = functionContent.getSecondArgument();
+
+                if (firstArgument != null)
+                    firstArgument.requestContent(firstReader, data);
+                if (secondArgument != null)
+                    functionContent.getSecondArgument().requestContent(secondReader, data);
 
                 _literalContent = functionContent.executeBinaryFunction(
                         firstReader.readContent(), secondReader.readContent());
@@ -51,6 +56,10 @@ public class ReadContent implements ContentVisitor {
                 List<Literal<?>> listedRangeArgs = new ArrayList<>();
                 ReadContent reader = new ReadContent();
                 for (int[] address: functionContent.getRangeArgument().getRange()) {
+
+                    Cell currentCell = data.getCells().get(data.computeCellIndex(address));
+                    if (currentCell == null) return;    // If empty cell is found abort visiting
+
                     Content currentContent = data.getCells().get(data.computeCellIndex(address)).getContent();
                     currentContent.requestContent(reader, data);
                     listedRangeArgs.add(reader.readContent());
