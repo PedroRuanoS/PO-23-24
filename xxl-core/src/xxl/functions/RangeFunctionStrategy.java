@@ -18,7 +18,7 @@ public abstract class RangeFunctionStrategy implements FunctionStrategy, Seriali
         return operand == null || !operand.toString().matches(INTEGER_REGEX);
     }
     public boolean invalidStringArgument(Literal<?> operand) {
-        return operand == null || !operand.toString().matches(INTEGER_REGEX);
+        return operand == null || !operand.toString().matches(STRING_REGEX);
     }
 
 }

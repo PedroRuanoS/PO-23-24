@@ -58,8 +58,10 @@ public class ReadContent implements ContentVisitor {
                 for (int[] address: functionContent.getRangeArgument().getRange()) {
 
                     Cell currentCell = data.getCells().get(data.computeCellIndex(address));
-                    if (currentCell == null) return;    // If empty cell is found abort visiting
-
+                    if (currentCell == null) {
+                        listedRangeArgs.add(null);
+                        continue;
+                    }
                     Content currentContent = data.getCells().get(data.computeCellIndex(address)).getContent();
                     currentContent.requestContent(reader, data);
                     listedRangeArgs.add(reader.readContent());
