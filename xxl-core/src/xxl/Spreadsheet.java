@@ -80,6 +80,7 @@ public class Spreadsheet implements Serializable {
         if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
         TransferVisitor transfer = new TransferCells();
 
+        _cutBuffer = new CutBuffer(_rowCount, _columnCount);
         _sheetData.transferCellsTo(range, transfer);
         _cutBuffer.transferCellsFrom(transfer);
         changed(true);
