@@ -1,6 +1,5 @@
 package xxl.functions;
 
-import xxl.Range;
 import xxl.content.IntegerLiteral;
 import xxl.content.Literal;
 
@@ -12,7 +11,7 @@ public class AverageFunction extends RangeFunctionStrategy implements Serializab
     public Literal<?> executeOperation(List<Literal<?>> operands) {
         int sum = 0;
         for (Literal<?> operand: operands) {
-            if (!checkIntArguments(operand)) return null;
+            if (invalidIntegerArgument(operand)) return null;
             sum += (int) operand.getValue();
         }
         if (!operands.isEmpty())

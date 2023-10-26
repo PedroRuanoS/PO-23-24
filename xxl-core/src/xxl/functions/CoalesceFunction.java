@@ -1,7 +1,5 @@
 package xxl.functions;
 
-import xxl.Range;
-import xxl.content.IntegerLiteral;
 import xxl.content.Literal;
 import xxl.content.StringLiteral;
 
@@ -12,7 +10,7 @@ public class CoalesceFunction extends RangeFunctionStrategy implements Serializa
     @Override
     public Literal<?> executeOperation(List<Literal<?>> operands) {
         for (Literal<?> operand: operands) {
-            if (checkStringArguments(operand))
+            if (invalidStringArgument(operand))
                 return new StringLiteral(operand.getValue().toString());
         }
         return new StringLiteral("");

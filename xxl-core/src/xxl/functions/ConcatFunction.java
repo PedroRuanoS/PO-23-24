@@ -1,7 +1,5 @@
 package xxl.functions;
 
-import xxl.Range;
-import xxl.content.IntegerLiteral;
 import xxl.content.Literal;
 import xxl.content.StringLiteral;
 
@@ -13,7 +11,7 @@ public class ConcatFunction extends RangeFunctionStrategy implements Serializabl
     public Literal<?> executeOperation(List<Literal<?>> operands) {
         StringBuilder result = new StringBuilder();
         for (Literal<?> operand: operands) {
-            if (checkStringArguments(operand))
+            if (invalidStringArgument(operand))
                 result.append((String) operand.getValue());
         }
         return new StringLiteral(result.toString());
