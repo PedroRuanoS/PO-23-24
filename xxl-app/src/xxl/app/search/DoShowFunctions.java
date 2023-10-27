@@ -20,6 +20,10 @@ class DoShowFunctions extends Command<Spreadsheet> {
     protected final void execute() {
         RenderedContentVisitor renderer = new RenderContent();
         _receiver.searchFunction(Form.requestString(Prompt.searchFunction()), renderer);
+
+        String output = renderer.toString().trim();
+        if (!output.isEmpty())
+            _display.popup(output);
     }
 
 }

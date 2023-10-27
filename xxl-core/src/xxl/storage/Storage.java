@@ -60,7 +60,7 @@ public abstract class Storage implements Serializable {
     }
 
     public void search(SearchPredicate predicate, String argument, RenderedContentVisitor renderer) {
-        Map<Integer, Content> matchingContents = new LinkedHashMap<>();
+        Map<Integer, Content> matchingContents = new HashMap<>();
         for (Map.Entry<Integer, Cell> entry : _cells.entrySet()) {
             if (entry.getValue() != null) {
                 if (predicate.test(argument, entry.getValue().getContent(), this)) {
@@ -68,9 +68,10 @@ public abstract class Storage implements Serializable {
                 }
             }
         }
-        Map<Integer, Content> sortedMatch = predicate.sort(matchingContents);
+        List<Map.Entry<Integer, Content>> sortedEntriesList = new LinkedList<>(matchingContents.entrySet());
+        predicate.sort(sortedEntriesList);
 
-        for (Map.Entry<Integer, Content> entry : sortedMatch.entrySet()) {
+        for (Map.Entry<Integer, Content> entry : sortedEntriesList) {
             renderer.renderAddress(revertCellIndex(entry.getKey()), false);
             entry.getValue().requestContent(renderer, this);
         }

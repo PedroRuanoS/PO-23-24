@@ -5,7 +5,6 @@ import xxl.content.FunctionContent;
 import xxl.storage.Storage;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class SearchFunction implements SearchPredicate {
     public boolean test(String argument, Content sheetCellContent, Storage data) {
@@ -16,7 +15,19 @@ public class SearchFunction implements SearchPredicate {
     }
 
     @Override
-    public Map<Integer, Content> sort(Map<Integer, Content> matchedContent) {
-        return null;
+    public void sort(List<Map.Entry<Integer, Content>> matchedContent) {
+        Comparator<Map.Entry<Integer, Content>> functionComparator = (firstEntry, secondEntry) -> {
+            String firstFunctionName = ((FunctionContent) firstEntry.getValue()).getFunctionName();
+            String secondFunctionName = ((FunctionContent) secondEntry.getValue()).getFunctionName();
+
+            int functionNameComparison = firstFunctionName.compareTo(secondFunctionName);
+
+            if (functionNameComparison == 0) {
+                return firstEntry.getKey().compareTo(secondEntry.getKey());  // Use cell index for tiebreaker
+            }
+            return functionNameComparison;
+        };
+
+        matchedContent.sort(functionComparator);
     }
 }

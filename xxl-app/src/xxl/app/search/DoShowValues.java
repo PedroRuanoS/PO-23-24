@@ -20,6 +20,10 @@ class DoShowValues extends Command<Spreadsheet> {
     protected final void execute() {
         RenderedContentVisitor renderer = new RenderContent();
         _receiver.searchValue(Form.requestString(Prompt.searchValue()), renderer);
+
+        String output = renderer.toString().trim();
+        if (!output.isEmpty())
+            _display.popup(output);
     }
 
 }
