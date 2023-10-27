@@ -124,7 +124,7 @@ public class Calculator {
     }
     
     /**
-     * @return changed?
+     * @return spreadsheet changed?
      */
     public boolean changed() {
         if (_spreadsheet == null)
@@ -136,7 +136,7 @@ public class Calculator {
      * Read text input file and create domain entities.
      *
      * @param filename name of the text input file
-     * @throws ImportFileException 
+     * @throws ImportFileException if there was a problem importing the file
      */
     public void importFile(String filename) throws ImportFileException {
         if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
