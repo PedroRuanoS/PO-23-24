@@ -1,5 +1,7 @@
 package xxl.content;
 
+import xxl.exceptions.InvalidFunctionException;
+
 public class ContentBuilder {
     private final String STRING_REGEX = "^'.*";
     private final String INTEGER_REGEX = "^-?\\d+$";
@@ -7,16 +9,19 @@ public class ContentBuilder {
     private final String FUNCTION_REGEX = "^=[A-Z]+\\(.+\\)";
 
 
-    public Content build(String contentSpecification) {
+    public Content build(String contentSpecification) throws InvalidFunctionException {
         if (contentSpecification.matches(STRING_REGEX))
             return new StringLiteral(contentSpecification);
         if (contentSpecification.matches(INTEGER_REGEX))
             return new IntegerLiteral(contentSpecification);
         if (contentSpecification.matches(REFERENCE_REGEX))
             return new ReferencedContent(contentSpecification);
-        if (contentSpecification.matches(FUNCTION_REGEX))
-            return new FunctionContent(contentSpecification);
-
+        if (contentSpecification.matches(FUNCTION_REGEX)) {
+            FunctionContent content = new FunctionContent(contentSpecification);
+            if (content.isInvalidFunction())
+                throw new InvalidFunctionException(content.getFunctionName());
+            return content;
+        }
         return null;
     }
 

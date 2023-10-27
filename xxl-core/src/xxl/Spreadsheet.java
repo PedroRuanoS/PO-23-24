@@ -2,6 +2,8 @@ package xxl;
 
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
+import xxl.content.FunctionContent;
+import xxl.exceptions.InvalidFunctionException;
 import xxl.exceptions.UnrecognizedEntryException;
 import xxl.search.SearchFunction;
 import xxl.search.SearchPredicate;
@@ -57,7 +59,8 @@ public class Spreadsheet implements Serializable {
      * @param rangeSpecification
      * @param contentSpecification
      */
-    public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
+    public void insertContents(String rangeSpecification, String contentSpecification)
+            throws UnrecognizedEntryException, InvalidFunctionException {
         try {
             Range range = checkCreateRange(rangeSpecification);
             ContentBuilder contentBuilder = new ContentBuilder();
@@ -144,6 +147,8 @@ public class Spreadsheet implements Serializable {
             }
         } catch (FileNotFoundException e) {
             throw new IOException();
+        } catch (InvalidFunctionException e) {
+            throw new UnrecognizedEntryException(e.getEntrySpecification());
         }
     }
 

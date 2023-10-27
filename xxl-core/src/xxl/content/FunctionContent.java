@@ -2,6 +2,7 @@ package xxl.content;
 
 
 import xxl.Range;
+import xxl.exceptions.InvalidFunctionException;
 import xxl.functions.*;
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
@@ -26,15 +27,19 @@ public class FunctionContent extends Content implements Serializable {
         ContentBuilder contentBuilder = new ContentBuilder();
 
         if (setStrategy(_functionName)) {
-            String fields[] = _functionArguments.split(",");
+            String[] fields = _functionArguments.split(",");
             if (fields.length > 1) {
                 if (fields[0].split(";").length == 2)
                     fields[0] = "=" + fields[0];
-                _firstArgument = contentBuilder.build(fields[0]);
+                try {
+                    _firstArgument = contentBuilder.build(fields[0]);
+                } catch (InvalidFunctionException ignored) {}
 
                 if (fields[1].split(";").length == 2)
                     fields[1] = "=" + fields[1];
-                _secondArgument = contentBuilder.build(fields[1]);
+                try {
+                    _secondArgument = contentBuilder.build(fields[1]);
+                } catch (InvalidFunctionException ignored) {}
             } else {
                 _rangeArgument = new Range(fields[0]);
             }
@@ -100,6 +105,8 @@ public class FunctionContent extends Content implements Serializable {
     public Content getFirstArgument() { return _firstArgument; }
     public Content getSecondArgument() { return _secondArgument; }
     public Range getRangeArgument() { return _rangeArgument; }
+
+    public boolean isInvalidFunction() { return _strategy == null; }
 
     @Override
     public boolean isFunctionContent() {

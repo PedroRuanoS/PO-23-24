@@ -4,6 +4,7 @@ import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 import xxl.Spreadsheet;
+import xxl.exceptions.InvalidFunctionException;
 import xxl.exceptions.UnrecognizedEntryException;
 
 /**
@@ -21,6 +22,8 @@ class DoInsert extends Command<Spreadsheet> {
             _receiver.insertContents(Form.requestString(Prompt.address()), Form.requestString(Prompt.content()));
         } catch (UnrecognizedEntryException e) {
             throw new InvalidCellRangeException(e.getEntrySpecification());
+        } catch (InvalidFunctionException e) {
+            throw new UnknownFunctionException(e.getEntrySpecification());
         }
     }
 
