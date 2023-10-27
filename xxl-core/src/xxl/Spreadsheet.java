@@ -58,40 +58,48 @@ public class Spreadsheet implements Serializable {
      * @param contentSpecification
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
-        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+        try {
+            Range range = new Range(rangeSpecification);
+            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
-        ContentBuilder contentBuilder = new ContentBuilder();
-        Content content = contentBuilder.build(contentSpecification);
+            ContentBuilder contentBuilder = new ContentBuilder();
+            Content content = contentBuilder.build(contentSpecification);
 
-        _sheetData.insertContents(range, content);
-        changed(true);
+            _sheetData.insertContents(range, content);
+            changed(true);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void requestContents(String rangeSpecification, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
-        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+        try {
+            Range range = new Range(rangeSpecification);
+            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
-        _sheetData.renderContents(range, renderer);
+            _sheetData.renderContents(range, renderer);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
-        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+        try {
+            Range range = new Range(rangeSpecification);
+            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
 
-        _sheetData.deleteContents(range);
-        changed(true);
+            _sheetData.deleteContents(range);
+            changed(true);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
-        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
-        TransferVisitor transfer = new TransferCells();
+        try {
+            Range range = new Range(rangeSpecification);
+            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            TransferVisitor transfer = new TransferCells();
 
-        _cutBuffer = new CutBuffer(_rowCount, _columnCount);
-        _sheetData.transferCellsTo(range, transfer);
-        _cutBuffer.transferCellsFrom(transfer);
-        changed(true);
+            _cutBuffer = new CutBuffer(_rowCount, _columnCount);
+            _sheetData.transferCellsTo(range, transfer);
+            _cutBuffer.transferCellsFrom(transfer);
+            changed(true);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void cutContents(String rangeSpecification) throws UnrecognizedEntryException {
@@ -101,13 +109,15 @@ public class Spreadsheet implements Serializable {
     }
 
     public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
-        Range range = new Range(rangeSpecification);
-        if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
-        TransferVisitor transfer = new TransferCells();
+        try {
+            Range range = new Range(rangeSpecification);
+            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            TransferVisitor transfer = new TransferCells();
 
-        _cutBuffer.transferCellsTo(transfer);
-        _sheetData.transferCellsFrom(range, transfer);
-        changed(true);
+            _cutBuffer.transferCellsTo(transfer);
+            _sheetData.transferCellsFrom(range, transfer);
+            changed(true);
+        } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void requestCutBufferContent(RenderedContentVisitor renderer) {

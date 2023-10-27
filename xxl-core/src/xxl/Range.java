@@ -62,10 +62,12 @@ public class Range implements Serializable {
     public boolean sameDimension(Range other) {
         if (isHorizontal()) {
             return (other.isHorizontal() &&
-                    (_columnAddresses[1] - _columnAddresses[0] == other.getColumnAddresses()[1] - other.getColumnAddresses()[0]));
+                    (_columnAddresses[1] - _columnAddresses[0] ==
+                            other.getColumnAddresses()[1] - other.getColumnAddresses()[0]));
         }
         return (other.isVertical() &&
-                (_rowAddresses[1] - _rowAddresses[0] == other.getRowAddresses()[1] - other.getRowAddresses()[0]));
+                (_rowAddresses[1] - _rowAddresses[0] ==
+                        other.getRowAddresses()[1] - other.getRowAddresses()[0]));
     }
 
     public int getFirstRow() {return _rowAddresses[0];}
