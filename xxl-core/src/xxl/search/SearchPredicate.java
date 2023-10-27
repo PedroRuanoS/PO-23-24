@@ -6,8 +6,9 @@ import xxl.storage.Storage;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public interface SearchPredicate {
     public boolean test(String argument, Content sheetContent, Storage data);
-    public List<Map.Entry<Integer, Content>> sort(Map<Integer, Content> contents);
+    public Map<Integer, Content> sort(Map<Integer, Content> matchedContent);
 }

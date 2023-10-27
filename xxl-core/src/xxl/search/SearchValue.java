@@ -10,6 +10,7 @@ import xxl.visitor.ReadContent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class SearchValue implements SearchPredicate {
     @Override
@@ -22,5 +23,10 @@ public class SearchValue implements SearchPredicate {
         return false;
     }
 
-    public List<Map.Entry<Integer, Content>> sort(Map<Integer, Content> contents) { return new ArrayList<>(contents.entrySet()); }
+    @Override
+    public Map<Integer, Content> sort(Map<Integer, Content> matchedContent) {
+        return matchedContent;  // Don't need to sort anything
+    }
+
+
 }
