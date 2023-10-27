@@ -9,7 +9,6 @@ public class Range implements Serializable {
     private int[] _rowAddresses = new int[2];      // [first row, last row]
     private int[] _columnAddresses = new int[2];   // [first column, last column]
 
-
     public int[] getRowAddresses() { return _rowAddresses; }
     public int[] getColumnAddresses() { return _columnAddresses; }
 

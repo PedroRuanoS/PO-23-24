@@ -1,7 +1,10 @@
 package xxl.app.search;
 
+import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.Command;
 import xxl.Spreadsheet;
+import xxl.visitor.RenderContent;
+import xxl.visitor.RenderedContentVisitor;
 // FIXME import classes
 
 /**
@@ -11,12 +14,12 @@ class DoShowFunctions extends Command<Spreadsheet> {
 
     DoShowFunctions(Spreadsheet receiver) {
         super(Label.SEARCH_FUNCTIONS, receiver);
-        addStringField("searchFunction", Prompt.searchFunction());
     }
 
     @Override
     protected final void execute() {
-        // FIXME implement command
+        RenderedContentVisitor renderer = new RenderContent();
+        _receiver.searchFunction(Form.requestString(Prompt.searchFunction()), renderer);
     }
 
 }

@@ -110,4 +110,8 @@ public class FunctionContent extends Content implements Serializable {
     public Content getSecondArgument() { return _secondArgument; }
     public Range getRangeArgument() { return _rangeArgument; }
 
+    @Override
+    public boolean isFunctionContent() { return true; }
+
+
 }

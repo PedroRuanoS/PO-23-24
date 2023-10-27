@@ -16,4 +16,10 @@ public abstract class Content implements Serializable {
     public void setState(boolean state) {_isStatic = state;}
 
     public abstract void requestContent(ContentVisitor visitor, Storage data);
+
+    public boolean isIntegerLiteral() { return false; }
+    public boolean isStringLiteral() { return false; }
+    public boolean isFunctionContent() { return false; }
+    public boolean isReferencedContent() { return false; }
+
 }

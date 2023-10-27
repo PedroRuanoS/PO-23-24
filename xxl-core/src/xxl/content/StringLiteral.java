@@ -27,4 +27,9 @@ public class StringLiteral extends Literal<String> implements Serializable {
     public String toString() {
         return "'" + _value;
     }
+
+    public boolean isIntegerLiteral() { return false; }
+    public boolean isStringLiteral() { return true; }
+    public boolean isFunctionContent() { return false; }
+    public boolean isReferencedContent() { return false; }
 }

@@ -17,7 +17,6 @@ public class Cell implements Serializable {
 
     public void requestContent(ContentVisitor visitor, Storage data) {
         _content.requestContent(visitor, data);
-
     }
 
 

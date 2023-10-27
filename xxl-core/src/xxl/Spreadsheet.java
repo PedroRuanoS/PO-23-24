@@ -7,6 +7,9 @@ import java.util.List;
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
 import xxl.exceptions.UnrecognizedEntryException;
+import xxl.search.SearchFunction;
+import xxl.search.SearchPredicate;
+import xxl.search.SearchValue;
 import xxl.storage.CutBuffer;
 import xxl.storage.SpreadsheetData;
 import xxl.visitor.RenderedContentVisitor;
@@ -106,12 +109,14 @@ public class Spreadsheet implements Serializable {
         _cutBuffer.renderContents(renderer);
     }
 
-    public void searchValue(String searchValue, RenderedContentVisitor renderer) {
-        // FIXME Implement
+    public void searchValue(String value, RenderedContentVisitor renderer) {
+        SearchPredicate valuePredicate = new SearchValue();
+        _sheetData.search(valuePredicate, value, renderer);
     }
 
-    public void searchFunction(String searchFunction, RenderedContentVisitor renderer) {
-        // FIXME Implement
+    public void searchFunction(String function, RenderedContentVisitor renderer) {
+        SearchPredicate functionPredicate = new SearchFunction();
+        _sheetData.search(functionPredicate, function, renderer);
     }
 
     public void importFile(String filename)

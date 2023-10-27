@@ -3,12 +3,16 @@ package xxl.storage;
 import xxl.Cell;
 import xxl.content.Content;
 import xxl.Range;
+import xxl.content.ContentBuilder;
+import xxl.content.FunctionContent;
+import xxl.content.Literal;
+import xxl.search.SearchPredicate;
 import xxl.visitor.ContentVisitor;
+import xxl.visitor.ReadContent;
 import xxl.visitor.RenderedContentVisitor;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Storage implements Serializable {
     private int _rowCount;
@@ -52,6 +56,22 @@ public abstract class Storage implements Serializable {
     public void deleteContents(Range range) {
         for (int[] address: range.getRange()) {
             _cells.remove(computeCellIndex(address));
+        }
+    }
+
+    public void search(SearchPredicate predicate, String argument, RenderedContentVisitor renderer) {
+        Map<Integer, Content> matchingContents = new HashMap<>();
+        for (Map.Entry<Integer, Cell> entry : _cells.entrySet()) {
+            if (entry.getValue() != null) {
+                if (predicate.test(argument, entry.getValue().getContent(), this)) {
+                    matchingContents.put(entry.getKey(), entry.getValue().getContent());
+                }
+            }
+        }
+        List<Map.Entry<Integer, Content>> contentList = predicate.sort(matchingContents);
+        for (Map.Entry<Integer, Content> entry : contentList) {
+            renderer.renderAddress(revertCellIndex(entry.getKey()), false);
+            entry.getValue().requestContent(renderer, this);
         }
     }
 

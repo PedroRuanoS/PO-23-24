@@ -28,4 +28,9 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
     public String toString() {
         return String.valueOf(_value);
     }
+
+    public boolean isIntegerLiteral() { return true; }
+    public boolean isStringLiteral() { return false; }
+    public boolean isFunctionContent() { return false; }
+    public boolean isReferencedContent() { return false; }
 }
