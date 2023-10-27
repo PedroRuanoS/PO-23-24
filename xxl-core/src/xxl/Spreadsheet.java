@@ -59,21 +59,20 @@ public class Spreadsheet implements Serializable {
      */
     public void insertContents(String rangeSpecification, String contentSpecification) throws UnrecognizedEntryException {
         try {
-            Range range = new Range(rangeSpecification);
-            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
-
+            Range range = checkCreateRange(rangeSpecification);
             ContentBuilder contentBuilder = new ContentBuilder();
             Content content = contentBuilder.build(contentSpecification);
 
-            _sheetData.insertContents(range, content);
-            changed(true);
+            if (content != null) {
+                _sheetData.insertContents(range, content);
+                changed(true);
+            }
         } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
     }
 
     public void requestContents(String rangeSpecification, RenderedContentVisitor renderer) throws UnrecognizedEntryException {
         try {
-            Range range = new Range(rangeSpecification);
-            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            Range range = checkCreateRange(rangeSpecification);
 
             _sheetData.renderContents(range, renderer);
         } catch (NumberFormatException e) { throw new UnrecognizedEntryException(rangeSpecification); }
@@ -81,8 +80,7 @@ public class Spreadsheet implements Serializable {
 
     public void deleteContents(String rangeSpecification) throws UnrecognizedEntryException {
         try {
-            Range range = new Range(rangeSpecification);
-            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            Range range = checkCreateRange(rangeSpecification);
 
             _sheetData.deleteContents(range);
             changed(true);
@@ -91,8 +89,7 @@ public class Spreadsheet implements Serializable {
 
     public void copyContents(String rangeSpecification) throws UnrecognizedEntryException {
         try {
-            Range range = new Range(rangeSpecification);
-            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            Range range = checkCreateRange(rangeSpecification);
             TransferVisitor transfer = new TransferCells();
 
             _cutBuffer = new CutBuffer(_rowCount, _columnCount);
@@ -105,13 +102,11 @@ public class Spreadsheet implements Serializable {
     public void cutContents(String rangeSpecification) throws UnrecognizedEntryException {
         copyContents(rangeSpecification);
         deleteContents(rangeSpecification);
-        changed(true);
     }
 
     public void pasteContents(String rangeSpecification) throws UnrecognizedEntryException {
         try {
-            Range range = new Range(rangeSpecification);
-            if (!isRangeOk(range)) throw new UnrecognizedEntryException(rangeSpecification);
+            Range range = checkCreateRange(rangeSpecification);
             TransferVisitor transfer = new TransferCells();
 
             _cutBuffer.transferCellsTo(transfer);
@@ -169,5 +164,17 @@ public class Spreadsheet implements Serializable {
         return ((range.isVertical() || range.isHorizontal())) &&
                 (range.getFirstRow() > 0 && range.getFirstColumn() > 0) &&
                 (range.getLastRow() <= _rowCount && range.getLastColumn() <= _columnCount);
+    }
+
+    public Range checkCreateRange(String rangeSpecification)
+            throws NumberFormatException, UnrecognizedEntryException {
+        if (!rangeSpecification.matches("\\d+;\\d+(?::\\d+;\\d+)?$"))
+            throw new UnrecognizedEntryException(rangeSpecification);
+
+        Range range = new Range(rangeSpecification);
+        if (!isRangeOk(range))
+            throw new UnrecognizedEntryException(rangeSpecification);
+
+        return range;
     }
 }
