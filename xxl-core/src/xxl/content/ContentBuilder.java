@@ -19,4 +19,10 @@ public class ContentBuilder {
 
         return null;
     }
+
+    public String getStringPattern() { return STRING_REGEX; }
+    public String getIntegerPattern() { return INTEGER_REGEX; }
+    public String getReferencePattern() { return REFERENCE_REGEX; }
+    public String getFunctionPattern() { return FUNCTION_REGEX; }
+
 }

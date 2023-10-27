@@ -23,7 +23,7 @@ public class SpreadsheetData extends Storage {
         for (int[] address: range.getRange()) {
             Cell currentCell = getCells().get(computeCellIndex(address));
 
-            if (currentCell != null) { // In case of reference, calculate cached value before sending it
+            if (currentCell != null) { // In case of unvisited function or reference; visit so value can appear in cutbuffer
                 ReadContent updateValue = new ReadContent();
                 currentCell.requestContent(updateValue, this);
             }
@@ -37,7 +37,7 @@ public class SpreadsheetData extends Storage {
         if (!transfer.isEmpty()) {
             if (range.isSingle() || range.sameDimension(transfer.getRange())) {
                 int startAddress = computeCellIndex(range.getRange().get(0));
-                for (Cell cell : transfer.getTransferedCells()) {
+                for (Cell cell : transfer.getTransferredCells()) {
                     Content currentContent = cell.getContent();
                     if (currentContent != null)
                         currentContent.setState(false);     // Remove static property since it's no longer in cut buffer

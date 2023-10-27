@@ -2,7 +2,6 @@ package xxl.visitor;
 
 import xxl.Cell;
 import xxl.Range;
-import xxl.content.Content;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface TransferVisitor {
 
     public Range getRange();
 
-    public List<Cell> getTransferedCells();
+    public List<Cell> getTransferredCells();
 
     public boolean isEmpty();
 }

@@ -1,9 +1,6 @@
 package xxl.content;
 
-import xxl.Cell;
-import xxl.Spreadsheet;
-import xxl.storage.CutBuffer;
-import xxl.storage.SpreadsheetData;
+
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 
@@ -29,8 +26,21 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
         return String.valueOf(_value);
     }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isIntegerLiteral() { return true; }
     public boolean isStringLiteral() { return false; }
     public boolean isFunctionContent() { return false; }
     public boolean isReferencedContent() { return false; }
+=======
+=======
+>>>>>>> Stashed changes
+    @Override
+    public boolean isIntegerLiteral() {
+        return true;
+    }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 }

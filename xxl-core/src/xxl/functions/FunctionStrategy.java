@@ -1,7 +1,6 @@
 package xxl.functions;
 
-import xxl.Range;
-import xxl.content.Content;
+
 import xxl.content.Literal;
 
 import java.util.List;

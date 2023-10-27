@@ -1,8 +1,6 @@
 package xxl.content;
 
-import xxl.Cell;
-import xxl.storage.CutBuffer;
-import xxl.storage.SpreadsheetData;
+
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 
@@ -28,8 +26,21 @@ public class StringLiteral extends Literal<String> implements Serializable {
         return "'" + _value;
     }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isIntegerLiteral() { return false; }
     public boolean isStringLiteral() { return true; }
     public boolean isFunctionContent() { return false; }
     public boolean isReferencedContent() { return false; }
+=======
+=======
+>>>>>>> Stashed changes
+    @Override
+    public boolean isStringLiteral() {
+        return true;
+    }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 }

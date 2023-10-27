@@ -5,8 +5,6 @@ import xxl.content.Literal;
 
 import java.io.Serializable;
 
-// FIXME para todas as funcoes o metodo intValue() ja nao existe!
-
 public class AddFunction extends BinaryFunctionStrategy implements Serializable {
     @Override
     public Literal<?> executeOperation(Literal<?> firstOperand, Literal<?> secondOperand) {

@@ -105,7 +105,7 @@ public class Spreadsheet implements Serializable {
         changed(true);
     }
 
-    public void requestCutBufferContent(RenderedContentVisitor renderer) throws UnrecognizedEntryException {
+    public void requestCutBufferContent(RenderedContentVisitor renderer) {
         _cutBuffer.renderContents(renderer);
     }
 

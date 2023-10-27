@@ -1,7 +1,7 @@
 package xxl.visitor;
 
+
 import xxl.content.*;
-import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 
 public class RenderContent implements RenderedContentVisitor {
@@ -54,4 +54,8 @@ public class RenderContent implements RenderedContentVisitor {
     @Override
     public String toString() { return _rendered; }
 
+    @Override
+    public boolean gotUpdated() {
+        return _readContent.gotUpdated();
+    }
 }

@@ -35,7 +35,7 @@ public class CutBuffer extends Storage {
         _copiedRange = transfer.getRange();
         int address = 0;
 
-        for (Cell cell: transfer.getTransferedCells()) {
+        for (Cell cell: transfer.getTransferredCells()) {
             if (cell == null)
                 putContent(null, address);  // Putting null in content is the same as deleting the content
             else {

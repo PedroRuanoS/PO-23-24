@@ -1,14 +1,14 @@
 package xxl.content;
 
+
 import xxl.Range;
-import xxl.Spreadsheet;
 import xxl.functions.*;
-import xxl.storage.SpreadsheetData;
 import xxl.storage.Storage;
 import xxl.visitor.ContentVisitor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 public class FunctionContent extends Content implements Serializable {
     private String _functionName;
@@ -42,53 +42,44 @@ public class FunctionContent extends Content implements Serializable {
     }
 
     public boolean setStrategy(String functionName) {
-        return switch (functionName) {
-            case ("ADD") -> {
-                _strategy = new AddFunction();
-                yield true;
-            }
-            case ("SUB") -> {
-                _strategy = new SubFunction();
-                yield true;
-            }
-            case ("MUL") -> {
-                _strategy = new MulFunction();
-                yield true;
-            }
-            case ("DIV") -> {
-                _strategy = new DivFunction();
-                yield true;
-            }
-            case ("AVERAGE") -> {
-                _strategy = new AverageFunction();
-                yield true;
-            }
-            case ("PRODUCT") -> {
-                _strategy = new ProductFunction();
-                yield true;
-            }
-            case ("CONCAT") -> {
-                _strategy = new ConcatFunction();
-                yield true;
-            }
-            case ("COALESCE") -> {
-                _strategy = new CoalesceFunction();
-                yield true;
-            }
-            default -> false;
-        };
+        Map<String, FunctionStrategy> functionMap = Map.of(
+            "ADD", new AddFunction(),
+            "SUB", new SubFunction(),
+            "MUL", new MulFunction(),
+            "DIV", new DivFunction(),
+            "AVERAGE", new AverageFunction(),
+            "PRODUCT", new ProductFunction(),
+            "CONCAT", new ConcatFunction(),
+            "COALESCE", new CoalesceFunction()
+        );
+
+        FunctionStrategy strategy = functionMap.get(functionName);
+        if (strategy != null) {
+            _strategy = strategy;
+            return true;
+        }
+        return false;
     }
 
     public Literal<?> executeBinaryFunction(Literal<?> firstOperand, Literal<?> secondOperand) {
-        return _strategy.executeOperation(firstOperand, secondOperand);
+        if (_strategy != null)
+            return _strategy.executeOperation(firstOperand, secondOperand);
+        return null;
     }
 
     public Literal<?> executeRangeFunction(List<Literal<?>> operands) {
-        return _strategy.executeOperation(operands);
+        if (_strategy != null)
+            return _strategy.executeOperation(operands);
+        return null;
     }
 
     @Override
     public void requestContent(ContentVisitor visitor, Storage data) {
+        if (isFirstVisit()) {
+            if (!isBinaryFunction())
+                data.registerObserverRange(_rangeArgument, this);
+            firstVisitComplete();
+        }
         visitor.visitFunction(this, data);
     }
 
@@ -111,7 +102,19 @@ public class FunctionContent extends Content implements Serializable {
     public Range getRangeArgument() { return _rangeArgument; }
 
     @Override
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isFunctionContent() { return true; }
 
 
+=======
+    public boolean isFunctionContent() {
+        return true;
+    }
+>>>>>>> Stashed changes
+=======
+    public boolean isFunctionContent() {
+        return true;
+    }
+>>>>>>> Stashed changes
 }

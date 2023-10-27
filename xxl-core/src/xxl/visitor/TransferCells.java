@@ -1,8 +1,8 @@
 package xxl.visitor;
 
+
 import xxl.Cell;
 import xxl.Range;
-import xxl.content.Content;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class TransferCells implements TransferVisitor {
 
     public Range getRange() { return _range; }
 
-    public List<Cell> getTransferedCells() {
+    public List<Cell> getTransferredCells() {
         return _transferedCells;
     }
 

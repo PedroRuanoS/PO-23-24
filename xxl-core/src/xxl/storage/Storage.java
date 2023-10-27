@@ -3,10 +3,18 @@ package xxl.storage;
 import xxl.Cell;
 import xxl.content.Content;
 import xxl.Range;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import xxl.content.ContentBuilder;
 import xxl.content.FunctionContent;
 import xxl.content.Literal;
 import xxl.search.SearchPredicate;
+=======
+import xxl.observer.Observer;
+>>>>>>> Stashed changes
+=======
+import xxl.observer.Observer;
+>>>>>>> Stashed changes
 import xxl.visitor.ContentVisitor;
 import xxl.visitor.ReadContent;
 import xxl.visitor.RenderedContentVisitor;
@@ -47,15 +55,17 @@ public abstract class Storage implements Serializable {
         int address = computeCellIndex(range.getRange().get(0));
 
         Cell currentCell = _cells.get(address);
-        boolean empty = (currentCell == null);
 
-        if (!empty)
+        if (!isEmptyCell(currentCell))
             currentCell.requestContent(reader, this);
     }
 
     public void deleteContents(Range range) {
         for (int[] address: range.getRange()) {
-            _cells.remove(computeCellIndex(address));
+            Cell currentCell = _cells.get(computeCellIndex(address));
+            if (!isEmptyCell(currentCell))
+                currentCell.deleteContent();
+<<<<<<< Updated upstream
         }
     }
 
@@ -72,6 +82,8 @@ public abstract class Storage implements Serializable {
         for (Map.Entry<Integer, Content> entry : contentList) {
             renderer.renderAddress(revertCellIndex(entry.getKey()), false);
             entry.getValue().requestContent(renderer, this);
+=======
+>>>>>>> Stashed changes
         }
     }
 
@@ -82,6 +94,17 @@ public abstract class Storage implements Serializable {
 
         if (!empty)
             currentCell.requestContent(renderer, this);
+    }
+
+    public void registerObserverRange(Range range, Observer observer) {
+        for (int[] address: range.getRange()) {
+            Cell referencedCell = _cells.get(computeCellIndex(address));
+            if (isEmptyCell(referencedCell)) {
+                referencedCell = new Cell(null);
+                _cells.put(computeCellIndex(address), referencedCell);
+            }
+            referencedCell.registerObserver(observer);
+        }
     }
 
     public void renderContents(Range range, RenderedContentVisitor renderer) {}
@@ -107,4 +130,6 @@ public abstract class Storage implements Serializable {
             return address + 1;
         return address + _columnCount;
     }
+
+    public boolean isEmptyCell(Cell cell) {return cell == null || cell.getContent() == null;}
 }

@@ -19,16 +19,12 @@ class DoShowCutBuffer extends Command<Spreadsheet> {
 
     @Override
     protected final void execute() throws CommandException {
-        try {
-            RenderedContentVisitor renderer = new RenderContent();
-            _receiver.requestCutBufferContent(renderer);
+        RenderedContentVisitor renderer = new RenderContent();
+        _receiver.requestCutBufferContent(renderer);
 
-            String output = renderer.toString().trim();
-            if (!output.isEmpty())
-                _display.popup(output);
-        } catch (UnrecognizedEntryException e) {
-            throw new InvalidCellRangeException(e.getEntrySpecification());
-        }
+        String output = renderer.toString().trim();
+        if (!output.isEmpty())
+            _display.popup(output);
     }
 
 }

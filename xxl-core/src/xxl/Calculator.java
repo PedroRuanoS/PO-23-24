@@ -13,7 +13,6 @@ import java.util.List;
 
 import xxl.exceptions.*;
 
-// FIXME import classes (Classes para ler e escrever em ficheiros e isso)
 
 /**
  * Class representing a spreadsheet application.
