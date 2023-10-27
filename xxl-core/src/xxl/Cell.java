@@ -28,18 +28,8 @@ public class Cell implements Serializable, Subject {
 
     public void requestContent(ContentVisitor visitor, Storage data) {
         _content.requestContent(visitor, data);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         if (visitor.gotUpdated())
             notifyObservers();
-
->>>>>>> Stashed changes
     }
 
     public void deleteContent() { _content = null; }

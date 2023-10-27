@@ -25,27 +25,9 @@ public class ReferencedContent extends Content implements Serializable {
     public void setValue(Literal<?> value) { _value = value; }
     public Literal<?> getValue() { return _value; }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public boolean isIntegerLiteral() { return false; }
-    public boolean isStringLiteral() { return false; }
-    public boolean isFunctionContent() { return false; }
-    public boolean isReferencedContent() { return true; }
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     @Override
     public boolean isReferenceContent() {
         return true;
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 }

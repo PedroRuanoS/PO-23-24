@@ -18,21 +18,6 @@ public abstract class Content implements Serializable, Observer {
 
     public void setState(boolean state) { _isStatic = state; }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public abstract void requestContent(ContentVisitor visitor, Storage data);
-
-    public boolean isIntegerLiteral() { return false; }
-    public boolean isStringLiteral() { return false; }
-    public boolean isFunctionContent() { return false; }
-    public boolean isReferencedContent() { return false; }
-
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     public void update() { _needsUpdate = true; }
 
     public void updated() {_needsUpdate = false; }
@@ -47,11 +32,4 @@ public abstract class Content implements Serializable, Observer {
     public boolean isStringLiteral() { return false; }
     public boolean isReferenceContent() { return false; }
     public boolean isFunctionContent() { return false; }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }

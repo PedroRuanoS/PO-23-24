@@ -3,26 +3,10 @@ package xxl.storage;
 import xxl.Cell;
 import xxl.content.Content;
 import xxl.Range;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-import xxl.content.ContentBuilder;
-import xxl.content.FunctionContent;
-import xxl.content.Literal;
 import xxl.search.SearchPredicate;
-=======
 import xxl.observer.Observer;
->>>>>>> Stashed changes
-=======
-import xxl.observer.Observer;
->>>>>>> Stashed changes
-=======
-import xxl.observer.Observer;
->>>>>>> Stashed changes
 import xxl.visitor.ContentVisitor;
-import xxl.visitor.ReadContent;
 import xxl.visitor.RenderedContentVisitor;
-
 import java.io.Serializable;
 import java.util.*;
 
@@ -69,8 +53,6 @@ public abstract class Storage implements Serializable {
             Cell currentCell = _cells.get(computeCellIndex(address));
             if (!isEmptyCell(currentCell))
                 currentCell.deleteContent();
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         }
     }
 
@@ -87,10 +69,6 @@ public abstract class Storage implements Serializable {
         for (Map.Entry<Integer, Content> entry : contentList) {
             renderer.renderAddress(revertCellIndex(entry.getKey()), false);
             entry.getValue().requestContent(renderer, this);
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         }
     }
 

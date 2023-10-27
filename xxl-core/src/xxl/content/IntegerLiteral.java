@@ -14,7 +14,9 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
     }
 
     @Override
-    public void requestContent(ContentVisitor visitor, Storage data) { visitor.visitInteger(this); }
+    public void requestContent(ContentVisitor visitor, Storage data) {
+        visitor.visitInteger(this);
+    }
 
     @Override
     public Integer getValue() {
@@ -26,27 +28,8 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
         return String.valueOf(_value);
     }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public boolean isIntegerLiteral() { return true; }
-    public boolean isStringLiteral() { return false; }
-    public boolean isFunctionContent() { return false; }
-    public boolean isReferencedContent() { return false; }
-=======
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     @Override
     public boolean isIntegerLiteral() {
         return true;
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }

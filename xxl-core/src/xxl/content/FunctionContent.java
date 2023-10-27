@@ -102,25 +102,7 @@ public class FunctionContent extends Content implements Serializable {
     public Range getRangeArgument() { return _rangeArgument; }
 
     @Override
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    public boolean isFunctionContent() { return true; }
-
-
-=======
     public boolean isFunctionContent() {
         return true;
     }
->>>>>>> Stashed changes
-=======
-    public boolean isFunctionContent() {
-        return true;
-    }
->>>>>>> Stashed changes
-=======
-    public boolean isFunctionContent() {
-        return true;
-    }
->>>>>>> Stashed changes
 }
