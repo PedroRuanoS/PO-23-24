@@ -5,7 +5,6 @@ import pt.tecnico.uilib.menus.Command;
 import xxl.Spreadsheet;
 import xxl.visitor.RenderContent;
 import xxl.visitor.RenderedContentVisitor;
-// FIXME import classes
 
 /**
  * Command for searching function names.

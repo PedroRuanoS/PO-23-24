@@ -1,9 +1,5 @@
 package xxl;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-
 import xxl.content.Content;
 import xxl.content.ContentBuilder;
 import xxl.exceptions.UnrecognizedEntryException;
@@ -15,6 +11,15 @@ import xxl.storage.SpreadsheetData;
 import xxl.visitor.RenderedContentVisitor;
 import xxl.visitor.TransferCells;
 import xxl.visitor.TransferVisitor;
+
+import java.io.Serial;
+import java.io.Serializable;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class representing a spreadsheet.

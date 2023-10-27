@@ -2,8 +2,9 @@ package xxl.functions;
 
 import xxl.content.ContentBuilder;
 import xxl.content.Literal;
-import java.util.List;
+
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class BinaryFunctionStrategy implements FunctionStrategy, Serializable {
     private final String INTEGER_PATTERN = new ContentBuilder().getIntegerPattern();

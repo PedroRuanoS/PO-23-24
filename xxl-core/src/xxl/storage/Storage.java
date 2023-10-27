@@ -1,17 +1,18 @@
 package xxl.storage;
 
 import xxl.Cell;
-import xxl.content.Content;
 import xxl.Range;
-import xxl.content.FunctionContent;
-import xxl.search.SearchPredicate;
+import xxl.content.Content;
 import xxl.observer.Observer;
+import xxl.search.SearchPredicate;
 import xxl.visitor.ContentVisitor;
 import xxl.visitor.RenderedContentVisitor;
+
 import java.io.Serializable;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public abstract class Storage implements Serializable {
     private int _rowCount;

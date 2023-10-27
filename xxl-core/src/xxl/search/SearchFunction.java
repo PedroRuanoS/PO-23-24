@@ -4,7 +4,9 @@ import xxl.content.Content;
 import xxl.content.FunctionContent;
 import xxl.storage.Storage;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 
 public class SearchFunction implements SearchPredicate {
     public boolean test(String argument, Content sheetCellContent, Storage data) {

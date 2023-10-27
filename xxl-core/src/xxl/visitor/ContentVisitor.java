@@ -1,7 +1,10 @@
 package xxl.visitor;
 
 
-import xxl.content.*;
+import xxl.content.FunctionContent;
+import xxl.content.IntegerLiteral;
+import xxl.content.ReferencedContent;
+import xxl.content.StringLiteral;
 import xxl.storage.Storage;
 
 public interface ContentVisitor {

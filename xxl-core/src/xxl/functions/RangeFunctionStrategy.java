@@ -2,6 +2,7 @@ package xxl.functions;
 
 import xxl.content.ContentBuilder;
 import xxl.content.Literal;
+
 import java.io.Serializable;
 import java.util.List;
 

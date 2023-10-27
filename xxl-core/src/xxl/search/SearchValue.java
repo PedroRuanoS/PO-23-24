@@ -1,7 +1,10 @@
 package xxl.search;
 
-import xxl.Range;
-import xxl.content.*;
+
+import xxl.content.Content;
+import xxl.content.ContentBuilder;
+import xxl.content.IntegerLiteral;
+import xxl.content.StringLiteral;
 import xxl.storage.Storage;
 import xxl.visitor.ReadContent;
 
@@ -15,12 +18,13 @@ public class SearchValue implements SearchPredicate {
         Content content = contentBuilder.build(argument);
         ReadContent visitor = new ReadContent();
         sheetCellContent.requestContent(visitor, data);
+
         if (content.isIntegerLiteral() && visitor.readContent().isIntegerLiteral()) {
-            IntegerLiteral arg  = new IntegerLiteral(argument);
-            return arg.getValue() == visitor.readContent().getValue();
+            IntegerLiteral literalArgument  = new IntegerLiteral(argument);
+            return literalArgument.getValue() == visitor.readContent().getValue();
         } else if (content.isStringLiteral() && visitor.readContent().isStringLiteral()) {
-            StringLiteral arg = new StringLiteral(argument);
-            return arg.getValue().equals(visitor.readContent().getValue());
+            StringLiteral literalArgument = new StringLiteral(argument);
+            return literalArgument.getValue().equals(visitor.readContent().getValue());
         }
         return false;
     }
