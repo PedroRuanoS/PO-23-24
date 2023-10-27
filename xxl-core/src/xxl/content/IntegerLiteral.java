@@ -28,6 +28,7 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isIntegerLiteral() { return true; }
     public boolean isStringLiteral() { return false; }
     public boolean isFunctionContent() { return false; }
@@ -35,11 +36,16 @@ public class IntegerLiteral extends Literal<Integer> implements Serializable {
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     @Override
     public boolean isIntegerLiteral() {
         return true;
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

@@ -27,6 +27,7 @@ public class ReferencedContent extends Content implements Serializable {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isIntegerLiteral() { return false; }
     public boolean isStringLiteral() { return false; }
     public boolean isFunctionContent() { return false; }
@@ -34,11 +35,16 @@ public class ReferencedContent extends Content implements Serializable {
 =======
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     @Override
     public boolean isReferenceContent() {
         return true;
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

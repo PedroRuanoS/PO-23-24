@@ -30,7 +30,10 @@ public class Cell implements Serializable, Subject {
         _content.requestContent(visitor, data);
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         if (visitor.gotUpdated())

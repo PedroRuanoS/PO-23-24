@@ -5,10 +5,14 @@ import xxl.content.Content;
 import xxl.Range;
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import xxl.content.ContentBuilder;
 import xxl.content.FunctionContent;
 import xxl.content.Literal;
 import xxl.search.SearchPredicate;
+=======
+import xxl.observer.Observer;
+>>>>>>> Stashed changes
 =======
 import xxl.observer.Observer;
 >>>>>>> Stashed changes
@@ -66,6 +70,7 @@ public abstract class Storage implements Serializable {
             if (!isEmptyCell(currentCell))
                 currentCell.deleteContent();
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         }
     }
 
@@ -82,6 +87,8 @@ public abstract class Storage implements Serializable {
         for (Map.Entry<Integer, Content> entry : contentList) {
             renderer.renderAddress(revertCellIndex(entry.getKey()), false);
             entry.getValue().requestContent(renderer, this);
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         }

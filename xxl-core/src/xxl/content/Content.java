@@ -20,6 +20,7 @@ public abstract class Content implements Serializable, Observer {
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public abstract void requestContent(ContentVisitor visitor, Storage data);
 
     public boolean isIntegerLiteral() { return false; }
@@ -28,6 +29,8 @@ public abstract class Content implements Serializable, Observer {
     public boolean isReferencedContent() { return false; }
 
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     public void update() { _needsUpdate = true; }
@@ -45,6 +48,9 @@ public abstract class Content implements Serializable, Observer {
     public boolean isReferenceContent() { return false; }
     public boolean isFunctionContent() { return false; }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes

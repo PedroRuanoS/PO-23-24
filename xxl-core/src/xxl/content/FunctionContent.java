@@ -104,9 +104,15 @@ public class FunctionContent extends Content implements Serializable {
     @Override
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     public boolean isFunctionContent() { return true; }
 
 
+=======
+    public boolean isFunctionContent() {
+        return true;
+    }
+>>>>>>> Stashed changes
 =======
     public boolean isFunctionContent() {
         return true;
