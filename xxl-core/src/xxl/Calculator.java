@@ -27,9 +27,15 @@ public class Calculator {
 
     /** The current name of the file. */
     private String _filename = "";
+
+    /** The current active user */
     private User _activeUser = new User("root");
+
+    /** All the users */
     private List<User> _allUsers = new ArrayList<>();
-    // FIX ME when creating the list, has to add user named "root" to it
+
+    /** Register root user */
+    public Calculator() { _allUsers.add(new User("root")); }
 
     /**
      * @param rows the rows the spreadsheet will have
@@ -40,7 +46,10 @@ public class Calculator {
         _activeUser.addSpreadsheet(_spreadsheet);
     }
 
-    public void createUser() {}
+    /**
+     * @param username the name of the user
+     */
+    public void createUser(String username) { _allUsers.add(new User(username)); }
 
     /**
      * @return spreadsheet
@@ -57,8 +66,14 @@ public class Calculator {
      */
     public void setFilename(String filename) { _filename = filename; }
 
+    /**
+    * @return active user
+    */
     public User getActiveUser() { return _activeUser; }
 
+    /**
+     * @param user active user
+     */
     public void setActiveUser(User user) { _activeUser = user; }
     
     /**
@@ -117,12 +132,11 @@ public class Calculator {
         return _spreadsheet.hasChanged();
     }
 
-
     /**
      * Read text input file and create domain entities.
      *
      * @param filename name of the text input file
-     * @throws ImportFileException
+     * @throws ImportFileException 
      */
     public void importFile(String filename) throws ImportFileException {
         if (_spreadsheet == null) _spreadsheet = new Spreadsheet();
