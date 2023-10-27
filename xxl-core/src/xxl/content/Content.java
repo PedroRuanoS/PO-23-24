@@ -20,7 +20,7 @@ public abstract class Content implements Serializable, Observer {
 
     public void update() { _needsUpdate = true; }
 
-    public void updated() {_needsUpdate = false; }
+    public void updated() { _needsUpdate = false; }
 
     public boolean isUpdated() { return !_needsUpdate; }
 
