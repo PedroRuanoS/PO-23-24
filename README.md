@@ -1,7 +1,7 @@
 # PO 2023/2024
 ## Repo with files for Programação com Objetos
 
-## Dependecies
+## Dependencies
 * [Java](openjdk.org/install) (Recommended version: Java 17)
 * Makefile
 
