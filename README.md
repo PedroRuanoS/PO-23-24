@@ -6,7 +6,7 @@
 * Makefile
 
 ## Running the Project
-Edit the top [Makefile](Makefile) and edit the `PO_UILIB_DIR` paramter to the path where UILIB is installed on your computer
+Edit the top [Makefile](Makefile) and change the `PO_UILIB_DIR` paramter to the path where UILIB is installed on your computer
 <br></br>
 Now, simply run
 ```bash
