@@ -1,16 +1,19 @@
-all: xxl-core.jar xxl-app.jar
+PO_UILIB_DIR=/usr/share/java
 
 
-xxl-core.jar:
+all: core app run
+
+
+core:
 	(cd xxl-core; make $(MFLAGS) all)
 
 
-xxl-app.jar:
-	(cd xxl-app; make $(MFLAGS) all)
+app: 
+	(cd xxl-app; make $(MFLAGS) all PO_UILIB_DIR=$(PO_UILIB_DIR))
 
 
 run:
-	(java -cp "./xxl-core/xxl-core.jar:./xxl-app/xxl-app.jar:/usr/share/java/po-uilib.jar" xxl.app.App)
+	(java -cp "./xxl-core/xxl-core.jar:./xxl-app/xxl-app.jar:$(PO_UILIB_DIR)/po-uilib.jar" xxl.app.App)
 
 
 clean:

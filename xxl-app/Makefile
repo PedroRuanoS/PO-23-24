@@ -1,5 +1,5 @@
-PO_UILIB_DIR=/usr/share/java
 JARNAME=xxl-app
+
 
 all:
 	(cd src; javac -cp $(PO_UILIB_DIR)/po-uilib.jar:../../xxl-core/xxl-core.jar -encoding UTF-8 `find . -name \*.java`)

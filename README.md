@@ -1,14 +1,15 @@
-# XXL application
+# PO 2023/2024
+## Repo with files for Programação com Objetos
 
-At the beginning of development, the repository contains skeleton code for the application. 
+## Dependecies
+* [Java](openjdk.org/install) (Recommended version: Java 17)
+* Makefile
 
-* Core: `xxl-core` contains the domain classes
-* Interaction: `xxl-app` contains the user interaction classes
-
-The names of the classes already present must be changed.
-Some classes must not be changed in any way, no matter the reason.
-See details on the course pages.
-
-Note that not all the code has to be working for all deliveries (penalties may apply).
-Check the evaluation conditions on the course pages.
-
+## Running the Project
+Edit the top [Makefile](Makefile) and edit the `PO_UILIB_DIR` paramter to the path where UILIB is installed on your computer
+<br></br>
+Now, simply run
+```bash
+make
+```
+This will compile and run the project!
