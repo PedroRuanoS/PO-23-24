@@ -1,5 +1,5 @@
 # PO 2023/2024
-## Repository with the files from the Lógica da Programação 2022/2023 course at Instituto Superior Técnico.
+## Repository with the files from the Programação com Objetos 2023/2024 course at Instituto Superior Técnico.
 
 ## Dependencies
 * [Java](openjdk.org/install) (Recommended version: Java 17)
