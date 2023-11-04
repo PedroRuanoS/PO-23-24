@@ -1,3 +1,7 @@
+**Authors:**
+ - Pedro Ruano Pinto Malta da Silveira - ist1106642
+ - Rodrigo Freitas Freire - 106485
+
 ## Dependencies
 * [Java](openjdk.org/install) (Recommended version: Java 17)
 * Makefile
