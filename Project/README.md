@@ -1,6 +1,6 @@
 **Authors:**
  - Pedro Ruano Pinto Malta da Silveira - ist1106642
- - Rodrigo Freitas Freire - 106485
+ - Rodrigo Freitas Freire - ist1106485
 
 ## Dependencies
 * [Java](openjdk.org/install) (Recommended version: Java 17)
